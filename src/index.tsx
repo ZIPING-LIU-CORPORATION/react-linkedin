@@ -15,7 +15,7 @@ export type LinkedinBadgeLoaderProps = {
  }
 export default class LinkedinBadgeLoader extends Component<any,Required<LinkedinBadgeLoaderProps & {badgeLoaded:boolean}> > {
   readonly CALLBACK_NAME: string = "LIBadgeCallback"; //Must match callback on helpers.js
-  readonly BADGE_NAMES = [".LI-profile-badge", ".LI-entity-badge"];
+  readonly BADGE_NAMES = ["LI-profile-badge", "LI-entity-badge"];
   readonly SCRIPT_NAMES =["badge-base__link", "LI-simple-link"]
   
   readonly TRACKING_PARAM = "profile-badge";
