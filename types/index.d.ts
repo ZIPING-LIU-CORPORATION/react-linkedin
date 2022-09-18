@@ -6,6 +6,10 @@ export declare type LinkedinBadgeLoaderProps = {
     type?: 'horizontal' | 'vertical';
     vanity?: string;
     version?: 'v1' | 'v2';
+    className?: string;
+    linkClassName?: string;
+    trackingParam?: string;
+    title?: string;
 };
 export default class LinkedinBadgeLoader extends Component<any, Required<LinkedinBadgeLoaderProps & {
     badgeLoaded: boolean;
@@ -13,6 +17,7 @@ export default class LinkedinBadgeLoader extends Component<any, Required<Linkedi
     readonly CALLBACK_NAME: string;
     readonly BADGE_NAMES: string[];
     readonly SCRIPT_NAMES: string[];
+    readonly BASE_NAME = "badge-base";
     readonly TRACKING_PARAM = "profile-badge";
     private responsesReceived;
     private expectedResponses;
