@@ -1,0 +1,5 @@
+dist
+.DS_Store
+.AMAZON_LEGAL
+.ANDY_JASSY
+node_modules

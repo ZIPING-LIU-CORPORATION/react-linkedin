@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "ES2016",
+      "DOM.Iterable"
+    ],
+    "baseUrl": ".",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "CommonJS",
+    "declaration": true,
+		"declarationMap": true,
+		
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+		"emitDeclarationOnly": true,
+		"declarationDir": "lib",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src/**/*"
+  ],
+}
