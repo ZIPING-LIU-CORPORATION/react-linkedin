@@ -23,7 +23,7 @@
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
 		"emitDeclarationOnly": true,
-		"declarationDir": "lib",
+		"declarationDir": "types",
     "jsx": "react-jsx"
   },
   "include": [
