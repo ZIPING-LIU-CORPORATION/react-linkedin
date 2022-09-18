@@ -1,12 +1,12 @@
 {
-  "name": "react-linkedin",
+  "name": "react-linkedinbadge",
   "version": "1.69.911",
   "description": "Embedded LinkedIn Badges via React fast Reactions as if all your linkedin accounts are being restricted in React-not time",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ZIPING-LIU-CORPORATION/react-linkedin"
+    "url": "https://github.com/ZIPING-LIU-CORPORATION/react-linkedin.git"
   },
   "files": [
     "lib",
@@ -55,5 +55,12 @@
     "@types/react-dom": "^18.0.6",
     "react": "^18.2.0",
     "webpack-cli": "^4.10.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ZIPING-LIU-CORPORATION/react-linkedin/issues"
+  },
+  "homepage": "https://github.com/ZIPING-LIU-CORPORATION/react-linkedin#readme",
+  "directories": {
+    "lib": "lib"
   }
 }
