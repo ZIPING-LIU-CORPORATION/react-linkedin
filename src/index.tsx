@@ -12,12 +12,16 @@ export type LinkedinBadgeLoaderProps = {
    type?:'horizontal'|'vertical';
    vanity?:string;
    version?:'v1'|'v2';
+   className?:string;
+   linkClassName?:string;
+   trackingParam?:string;
+  title?:string;
  }
 export default class LinkedinBadgeLoader extends Component<any,Required<LinkedinBadgeLoaderProps & {badgeLoaded:boolean}> > {
   readonly CALLBACK_NAME: string = "LIBadgeCallback"; //Must match callback on helpers.js
-  readonly BADGE_NAMES = ["LI-profile-badge", "LI-entity-badge"];
-  readonly SCRIPT_NAMES =["badge-base__link", "LI-simple-link"]
-  
+  readonly BADGE_NAMES = [".LI-profile-badge", ".LI-entity-badge"];
+  readonly SCRIPT_NAMES =[".badge-base__link", ".LI-simple-link"]
+  readonly BASE_NAME = "badge-base";
   readonly TRACKING_PARAM = "profile-badge";
   private responsesReceived = 0; //Keeps track of number of responses recieved for proper cleanup when finished
   private expectedResponses = 0; //Keeps track of number of responses to expect
@@ -53,7 +57,11 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
       type: props.type || "horizontal",
       vanity: props.vanity || "liu",
       version: props.version || "v1",
-      badgeLoaded: false
+      badgeLoaded: false,
+      title: props.title || "Linkedin.com/in/liu",
+      className: props.className || this.BASE_NAME + this.BADGE_NAMES[0].replace(".", ""),
+      linkClassName: props.linkClassName || this.SCRIPT_NAMES.map((name) => name.replace(".","")).join(" "),
+      trackingParam: props.trackingParam || this.TRACKING_PARAM,
     };
     this.responseHandler = this.responseHandler.bind(this);
     this.childScripts = new Map<Node, boolean>();
@@ -238,17 +246,18 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     this.liuRenderAll();
     return (
       <div
-        className={this.BADGE_NAMES.join(" ")}
-        data-locale={this.props.locale}
-        data-size={this.props.size}
-        data-theme={this.props.theme}
-        data-type={this.props.type}
-        data-vanity=  {this.props.vanity}
-        data-version={this.props.version}
+        className="badge-base LI-profile-badge"
+        data-locale={this.state.locale}
+        data-size={this.state.size}
+        data-theme={this.state.theme}
+        data-type={this.state.type}
+        data-vanity=  {this.state.vanity}
+        data-version={this.state.version}
+		
       >
         <a
-          className={this.SCRIPT_NAMES.join(" ")}
-          href="https://www.linkedin.com/in/liu?trk=profile-badge"
+          className="badge-base__link LI-simple-link"
+          href={`${'https://www.linkedin.com/in/' + this.state.vanity + '?trk=profile-badge'}`}
         >
           Ziping L.
         </a>
