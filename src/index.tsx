@@ -4,9 +4,20 @@ import React, { Component } from "react";
 
 import { createRoot } from "react-dom/client";
 import { cloneDeep } from "lodash";
-export default class LinkedinBadgeLoader extends Component<any, any> {
+
+export type LinkedinBadgeLoaderProps = {
+  locale?:string;
+  size?:'small'|'medium'|'large';
+   theme?:'dark'|'light';
+   type?:'horizontal'|'vertical';
+   vanity?:string;
+   version?:'v1'|'v2';
+ }
+export default class LinkedinBadgeLoader extends Component<any,Required<LinkedinBadgeLoaderProps & {badgeLoaded:boolean}> > {
   readonly CALLBACK_NAME: string = "LIBadgeCallback"; //Must match callback on helpers.js
   readonly BADGE_NAMES = [".LI-profile-badge", ".LI-entity-badge"];
+  readonly SCRIPT_NAMES =["badge-base__link", "LI-simple-link"]
+  
   readonly TRACKING_PARAM = "profile-badge";
   private responsesReceived = 0; //Keeps track of number of responses recieved for proper cleanup when finished
   private expectedResponses = 0; //Keeps track of number of responses to expect
@@ -33,8 +44,17 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
     const domainSuffix = LinkedinBadgeLoader.isCNDomain() ? ".cn" : "";
     return `${domainPrefix}${domainSuffix}/js/linkedInBadge.js`;
   }
-  constructor() {
-    super({});
+  constructor(props: LinkedinBadgeLoaderProps) {
+    super(props);
+    this.state = {
+      locale: props.locale || "en_US",
+      size: props.size || "medium",
+      theme: props.theme || "light",
+      type: props.type || "horizontal",
+      vanity: props.vanity || "liu",
+      version: props.version || "v1",
+      badgeLoaded: false
+    };
     this.responseHandler = this.responseHandler.bind(this);
     this.childScripts = new Map<Node, boolean>();
     this.tryClean = this.tryClean.bind(this);
@@ -52,7 +72,7 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
    * Renders all unrendred LinkedIn Badges on the page
    */
   liuRenderAll() {
-    // TODO -- tracking param for other badge types
+    // FROM LINKEDIN TODO -- tracking param for other badge types
 
     for (const badge of this.badges) {
       const rendered = badge.getAttribute("data-rendered");
@@ -78,13 +98,6 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
     }
     return params;
 
-    // Array.prototype.slice.call(badge.attributes).filter(function (attr) {
-    //   return attr.name.lastIndexOf('data-key-', 0) !== -1;
-    // }).map(function (attr) {
-    //   // Most browsers automatically lowercase the attribute name when its being read
-    //   // We are calling lowercase on it again to ensure consistency for any browsers that are lagging behind.
-    //   return encodeURIComponent(attr.name.replace('data-', '').toLowerCase()) + '=' + encodeURIComponent(attr.value);
-    // });
   }
 
   /*
@@ -131,6 +144,7 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
 
     url = baseUrl + "?" + queryParams.join("&");
     badge.setAttribute("data-uid", String(uid));
+    this.setState({ badgeLoaded: true });
     this.jsonp(url); //Calls responseHandler when done
   }
 
@@ -164,9 +178,7 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
             "width",
             String(iframeBody?.scrollWidth || defaultWidth) + 5
           );
-          this.setState({
-            badgeLoaded: true,
-          });
+        
         };
 
         createRoot(iframe).render(
@@ -226,16 +238,16 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
     this.liuRenderAll();
     return (
       <div
-        className="badge-base LI-profile-badge"
-        data-locale="en_US"
-        data-size="large"
-        data-theme="light"
-        data-type="HORIZONTAL"
-        data-vanity="liu"
-        data-version="v1"
+        className={this.BADGE_NAMES.join(" ")}
+        data-locale={this.props.locale}
+        data-size={this.props.size}
+        data-theme={this.props.theme}
+        data-type={this.props.type}
+        data-vanity=  {this.props.vanity}
+        data-version={this.props.version}
       >
         <a
-          className="badge-base__link LI-simple-link"
+          className={this.SCRIPT_NAMES.join(" ")}
           href="https://www.linkedin.com/in/liu?trk=profile-badge"
         >
           Ziping L.
@@ -278,4 +290,3 @@ export default class LinkedinBadgeLoader extends Component<any, any> {
   }
 }
 
-const badgeLoader = new LinkedinBadgeLoader();
