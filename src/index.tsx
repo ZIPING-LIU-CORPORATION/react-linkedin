@@ -17,17 +17,19 @@ export type LinkedinBadgeLoaderProps = {
    trackingParam?:string;
   title?:string;
  }
-export default class LinkedinBadgeLoader extends Component<any,Required<LinkedinBadgeLoaderProps & {badgeLoaded:boolean}> > {
+export default class LinkedinBadgeLoader extends Component<any,Required<LinkedinBadgeLoaderProps & {badgeLoaded:boolean,  responsesReceived: number; //Keeps track of number of responses recieved for proper cleanup when finished
+ expectedResponses: number; //Keeps track of number of responses to expect}> > 
+  scripts: HTMLScriptElement[]; //Keeps track of scripts added for proper cleanup when finished
+  childScripts: Map<Node, boolean>;
+  badges: HTMLElement[];
+}>>{
   readonly CALLBACK_NAME: string = "LIBadgeCallback"; //Must match callback on helpers.js
   readonly BADGE_NAMES = [".LI-profile-badge", ".LI-entity-badge"];
   readonly SCRIPT_NAMES =[".badge-base__link", ".LI-simple-link"]
   readonly BASE_NAME = "badge-base";
   readonly TRACKING_PARAM = "profile-badge";
-  private responsesReceived = 0; //Keeps track of number of responses recieved for proper cleanup when finished
-  private expectedResponses = 0; //Keeps track of number of responses to expect
-  private scripts: HTMLScriptElement[] = []; //Keeps track of scripts added for proper cleanup when finished
-  private childScripts: Map<Node, boolean>;
-  readonly badges: HTMLElement[];
+
+
 
   static isCNDomain() {
     if (typeof window !== "undefined") {
@@ -59,21 +61,25 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
       version: props.version || "v1",
       badgeLoaded: false,
       title: props.title || "Linkedin.com/in/liu",
-      className: props.className || this.BASE_NAME + this.BADGE_NAMES[0].replace(".", ""),
+      className: props.className || `${this.BASE_NAME} ${this.BADGE_NAMES[0].replace('.', '')}`,
       linkClassName: props.linkClassName || this.SCRIPT_NAMES.map((name) => name.replace(".","")).join(" "),
       trackingParam: props.trackingParam || this.TRACKING_PARAM,
+      expectedResponses: 0,
+      responsesReceived: 0,
+      scripts : [],
+      childScripts: new Map(),
+      badges: Array.prototype.slice.call(
+        document.querySelectorAll(this.BADGE_NAMES.join(" ")).values(),
+        0
+      )
     };
     this.responseHandler = this.responseHandler.bind(this);
-    this.childScripts = new Map<Node, boolean>();
     this.tryClean = this.tryClean.bind(this);
+    this.getBadgeKeyQueryParams = this.getBadgeKeyQueryParams.bind(this);
     this.liuRenderAll = this.liuRenderAll.bind(this);
     this.replaceScriptTags = this.replaceScriptTags.bind(this);
-    this.badges = Array.prototype.slice.call(
-      document.querySelectorAll(this.BADGE_NAMES.join(" ")).values(),
-      0
-    );
     this.renderBadge = this.renderBadge.bind(this);
-
+    this.jsonp = this.jsonp.bind(this);
     (window as any)[this.CALLBACK_NAME] = this.responseHandler;
   }
   /**
@@ -82,10 +88,12 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   liuRenderAll() {
     // FROM LINKEDIN TODO -- tracking param for other badge types
 
-    for (const badge of this.badges) {
+    for (const badge of this.state.badges) {
       const rendered = badge.getAttribute("data-rendered");
       if (rendered !== null && rendered.length > 0) {
-        this.expectedResponses++;
+        this.setState({
+          expectedResponses: this.state.expectedResponses + 1,
+        })
         badge.setAttribute("data-rendered", "true");
         this.renderBadge(badge);
       }
@@ -162,13 +170,16 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
    * @param badgeUid: UID of the badge to target
    **/
   responseHandler(badgeHtml: HTMLElement, badgeUid: string) {
-    this.responsesReceived++;
+    this.setState({
+      responsesReceived: this.state.responsesReceived + 1,
+    });
+  
 
     let i, badge, uid, isCreate;
     const defaultWidth = 330; // max possible width
     const defaultHeight = 300; // max possible height
 
-    for (const badge of this.badges) {
+    for (const badge of this.state.badges) {
       isCreate = badge.hasAttribute("data-iscreate");
       uid = badge.getAttribute("data-uid");
       if (uid === badgeUid) {
@@ -207,7 +218,9 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
         this.cloneScriptNode(node as HTMLElement),
         node
       );
-      this.childScripts.set(node, true);
+      const childScripts = this.state.childScripts;
+      childScripts.set(node, true);
+      this.setState({ childScripts });
     } else {
       let i = 0,
         children = node.childNodes;
@@ -221,7 +234,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   shouldReplaceNode(node: HTMLElement, isCreate: boolean) {
     return (
       this.isScriptNode(node) &&
-      !this.childScripts.get(node) &&
+      !this.state.childScripts.get(node) &&
       (!isCreate || (isCreate && !node.getAttribute("data-isartdeco")))
     );
   }
@@ -246,20 +259,19 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     this.liuRenderAll();
     return (
       <div
-        className="badge-base LI-profile-badge"
+        className= {this.state.className}
         data-locale={this.state.locale}
         data-size={this.state.size}
         data-theme={this.state.theme}
         data-type={this.state.type}
         data-vanity=  {this.state.vanity}
         data-version={this.state.version}
-		
       >
         <a
-          className="badge-base__link LI-simple-link"
+          className={this.state.linkClassName}
           href={`${'https://www.linkedin.com/in/' + this.state.vanity + '?trk=profile-badge'}`}
         >
-          Ziping L.
+         {this.state.title}
         </a>
       </div>
     );
@@ -274,16 +286,18 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     //Clean up after all requests are done..
     //Accounts for people including script more than once
     const done =
-      (this.responsesReceived >= this.expectedResponses &&
-        this.expectedResponses > 0) ||
-      this.responsesReceived >= this.badges.length;
+      (this.state.responsesReceived >= this.state.expectedResponses &&
+        this.state.expectedResponses > 0) ||
+      this.state.responsesReceived >= this.state.badges.length;
     if (done) {
       delete (window as any)[`${this.CALLBACK_NAME}`];
 
       // remove all script tags
-      this.scripts.map(function (script) {
+      const scripts = this.state.scripts;
+      scripts.map(function (script) {
         document.body.removeChild(script);
       })
+      this.setState({ scripts});
     }
   }
 
@@ -294,7 +308,9 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   jsonp(url: string) {
     const script = document.createElement("script");
     script.src = url;
-    this.scripts.push(script);
+    const scripts = this.state.scripts;
+    scripts.push(script);
+    this.setState({ scripts });
     document.body.appendChild(script);
   }
 }

@@ -13,17 +13,17 @@ export declare type LinkedinBadgeLoaderProps = {
 };
 export default class LinkedinBadgeLoader extends Component<any, Required<LinkedinBadgeLoaderProps & {
     badgeLoaded: boolean;
+    responsesReceived: number;
+    expectedResponses: number;
+    scripts: HTMLScriptElement[];
+    childScripts: Map<Node, boolean>;
+    badges: HTMLElement[];
 }>> {
     readonly CALLBACK_NAME: string;
     readonly BADGE_NAMES: string[];
     readonly SCRIPT_NAMES: string[];
     readonly BASE_NAME = "badge-base";
     readonly TRACKING_PARAM = "profile-badge";
-    private responsesReceived;
-    private expectedResponses;
-    private scripts;
-    private childScripts;
-    readonly badges: HTMLElement[];
     static isCNDomain(): boolean;
     static generateUrl(isEI: boolean): string;
     constructor(props: LinkedinBadgeLoaderProps);
