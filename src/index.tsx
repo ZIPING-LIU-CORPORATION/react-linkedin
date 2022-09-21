@@ -220,7 +220,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     }
   }
   handleLoad() {
-    this.liuRenderAll();
+    this.renderBadge(this.state.badges[0]);
    }
 
   // These functions are needed because badge markup is added via innerHtml property which does not run script tags
@@ -268,7 +268,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   }
 
   render() {
-    
+    this.renderBadge(this.state.badges[0]);
     return (
       <div
         className= {this.state.className}
