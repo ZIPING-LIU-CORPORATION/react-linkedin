@@ -33,12 +33,15 @@ export default class LinkedinBadgeLoader extends Component<any, Required<Linkedi
     liuRenderAll(): void;
     getBadgeKeyQueryParams(badge: HTMLElement): string[];
     renderBadge(badge: HTMLElement): void;
+    componentDidMount(): void;
+    componentWillUnmount(): void;
     /**
      * Handles a response from the server. Finds badge matching badgeUid and inserts badgeHtml there
      * @param badgeHtml: String representing contents of the badge
      * @param badgeUid: UID of the badge to target
      **/
     responseHandler(badgeHtml: HTMLElement, badgeUid: string): void;
+    handleLoad(): void;
     replaceScriptTags(node: Node, isCreate: boolean): Node;
     shouldReplaceNode(node: HTMLElement, isCreate: boolean): boolean;
     isScriptNode(node: HTMLElement): boolean;

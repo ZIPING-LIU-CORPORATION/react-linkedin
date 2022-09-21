@@ -12,17 +12,18 @@
 						}
 						render() {
 							const props: LinkedinBadgeLoaderProps = {
-								vanity: 'liu',
+								vanity: 'adamselipsky',
 								theme: 'light',
 								size: 'large',
 								type: 'horizontal',
 								locale: 'en_US',
 								version: 'v1'
+								title: 'Where Are my Wages Selipsky...'
 							}
 							return (
 								<div className="s-about row">
 									<div className='col-full'>
-									<LinkedinBadgeLoader props={props} />
+									<LinkedinBadgeLoader {...props} />
 
 									</div>
 								</div>

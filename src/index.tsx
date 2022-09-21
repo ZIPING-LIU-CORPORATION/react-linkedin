@@ -80,6 +80,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     this.replaceScriptTags = this.replaceScriptTags.bind(this);
     this.renderBadge = this.renderBadge.bind(this);
     this.jsonp = this.jsonp.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
     (window as any)[this.CALLBACK_NAME] = this.responseHandler;
   }
   /**
@@ -164,6 +165,14 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     this.jsonp(url); //Calls responseHandler when done
   }
 
+  componentDidMount() {
+    window.addEventListener('load', this.handleLoad);
+ }
+
+ componentWillUnmount() { 
+   window.removeEventListener('load', this.handleLoad)  
+ }
+
   /**
    * Handles a response from the server. Finds badge matching badgeUid and inserts badgeHtml there
    * @param badgeHtml: String representing contents of the badge
@@ -210,6 +219,9 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
       }
     }
   }
+  handleLoad() {
+    this.liuRenderAll();
+   }
 
   // These functions are needed because badge markup is added via innerHtml property which does not run script tags
   replaceScriptTags(node: Node, isCreate: boolean) {
@@ -256,7 +268,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   }
 
   render() {
-    this.liuRenderAll();
+    
     return (
       <div
         className= {this.state.className}
@@ -273,6 +285,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
         >
          {this.state.title}
         </a>
+        
       </div>
     );
   }

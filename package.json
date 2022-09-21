@@ -1,6 +1,6 @@
 {
   "name": "react-linkedinbadge",
-  "version": "2.0.121",
+  "version": "2.0.202",
   "description": "Embedded LinkedIn Badges via React fast Reactions as if all your linkedin accounts are being restricted in React-not time",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
