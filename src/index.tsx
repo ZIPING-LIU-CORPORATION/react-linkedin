@@ -21,7 +21,6 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
  expectedResponses: number; //Keeps track of number of responses to expect}> > 
   scripts: HTMLScriptElement[]; //Keeps track of scripts added for proper cleanup when finished
   childScripts: Map<Node, boolean>;
-  badges: HTMLElement[];
 }>>{
   readonly CALLBACK_NAME: string = "LIBadgeCallback"; //Must match callback on helpers.js
   readonly BADGE_NAMES = [".LI-profile-badge", ".LI-entity-badge"];
@@ -68,10 +67,6 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
       responsesReceived: 0,
       scripts : [],
       childScripts: new Map(),
-      badges: Array.prototype.slice.call(
-        document.querySelectorAll(this.BADGE_NAMES.join(" ")).values(),
-        0
-      )
     };
     this.responseHandler = this.responseHandler.bind(this);
     this.tryClean = this.tryClean.bind(this);
@@ -88,15 +83,15 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
    */
   liuRenderAll() {
     // FROM LINKEDIN TODO -- tracking param for other badge types
-
-    for (const badge of this.state.badges) {
+    const badges = document.querySelectorAll(this.state.className);
+    for (const badge of badges) {
       const rendered = badge.getAttribute("data-rendered");
       if (rendered !== null && rendered.length > 0) {
         this.setState({
           expectedResponses: this.state.expectedResponses + 1,
         })
         badge.setAttribute("data-rendered", "true");
-        this.renderBadge(badge);
+        this.renderBadge(badge as HTMLElement);
       }
     }
   }
@@ -187,8 +182,8 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     let i, badge, uid, isCreate;
     const defaultWidth = 330; // max possible width
     const defaultHeight = 300; // max possible height
-
-    for (const badge of this.state.badges) {
+    const badges = document.querySelectorAll(this.state.className);
+    for (const badge of badges) {
       isCreate = badge.hasAttribute("data-iscreate");
       uid = badge.getAttribute("data-uid");
       if (uid === badgeUid) {
@@ -220,7 +215,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     }
   }
   handleLoad() {
-    this.renderBadge(this.state.badges[0]);
+    this.liuRenderAll();
    }
 
   // These functions are needed because badge markup is added via innerHtml property which does not run script tags
@@ -268,7 +263,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   }
 
   render() {
-    this.renderBadge(this.state.badges[0]);
+    
     return (
       <div
         className= {this.state.className}
