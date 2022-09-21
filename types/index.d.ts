@@ -17,7 +17,6 @@ export default class LinkedinBadgeLoader extends Component<any, Required<Linkedi
     expectedResponses: number;
     scripts: HTMLScriptElement[];
     childScripts: Map<Node, boolean>;
-    badges: HTMLElement[];
 }>> {
     readonly CALLBACK_NAME: string;
     readonly BADGE_NAMES: string[];

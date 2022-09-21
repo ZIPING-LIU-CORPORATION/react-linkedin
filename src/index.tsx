@@ -293,10 +293,11 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   tryClean() {
     //Clean up after all requests are done..
     //Accounts for people including script more than once
+    const badges = document.querySelectorAll(this.state.className);
     const done =
       (this.state.responsesReceived >= this.state.expectedResponses &&
         this.state.expectedResponses > 0) ||
-      this.state.responsesReceived >= this.state.badges.length;
+      this.state.responsesReceived >= badges.length;
     if (done) {
       delete (window as any)[`${this.CALLBACK_NAME}`];
 
