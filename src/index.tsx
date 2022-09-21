@@ -76,7 +76,6 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
     this.renderBadge = this.renderBadge.bind(this);
     this.jsonp = this.jsonp.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
-    (window as any)[this.CALLBACK_NAME] = this.responseHandler;
   }
   /**
    * Renders all unrendred LinkedIn Badges on the page
@@ -161,6 +160,7 @@ export default class LinkedinBadgeLoader extends Component<any,Required<Linkedin
   }
 
   componentDidMount() {
+    (window as any)[this.CALLBACK_NAME] = this.responseHandler;
     window.addEventListener('load', this.handleLoad);
  }
 
