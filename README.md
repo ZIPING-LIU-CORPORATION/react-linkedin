@@ -31,3 +31,18 @@ const App = () => {
   );
 };
 ```
+
+### CDN
+You can also load this component via CDN by adding the following script tag to your HTML file:
+```html
+<script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge@3.0.0/lib/linkedinbadge.min.js"></script>
+```
+
+You then can use it from the global scope, via the variable `LinkedInBadge` from your `window` object. Be sure to also load React and ReactDOM before using this component in your html file and thus before loading the `linkedinbadge.min.js` script. 
+
+
+### Links
+- [NPM Package](https://www.npmjs.com/package/react-linkedinbadge)
+- [Yarn Package](https://yarnpkg.com/package/react-linkedinbadge)
+- [GitHub Repository](https://github.com/ziping-liu-corporation/react-linkedin)
+- [LinkedIn Badge Creation](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org)
