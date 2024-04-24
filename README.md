@@ -40,6 +40,39 @@ You can also load this component via CDN by adding the following script tag to y
 
 You then can use it from the global scope, via the variable `LinkedInBadge` from your `window` object. Be sure to also load React and ReactDOM before using this component in your html file and thus before loading the `linkedinbadge.min.js` script. 
 
+Full example:
+```html
+<html>
+
+<head>
+   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge@4/lib/linkedinbadge.min.js"></script>
+</head>
+
+<body>
+   <div id="root"></div>
+
+   <script async defer>
+      console.log("HI")
+      const LinkedInBadge = window.LinkedInBadge;
+      console.info(LinkedInBadge)
+      const Reactelem = React.createElement(LinkedInBadge, {
+         type: "HORIZONTAL",
+         size: "large",
+         theme: "DARK",
+         vanity: "☯liu",
+      });
+      const rootelem = document.getElementById('root');
+      if (rootelem) {
+         ReactDOM.render(Reactelem, rootelem);
+      } 
+   </script>
+</body>
+
+</html>
+```
+
 
 ### Links
 - [NPM Package](https://www.npmjs.com/package/react-linkedinbadge)

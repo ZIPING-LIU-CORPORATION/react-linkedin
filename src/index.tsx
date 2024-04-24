@@ -9,6 +9,7 @@ import React from 'react';
  * @param id: string - The id of the badge, this is only required if you are going to have multiple badges on the same page, hence if thats the case make sure each badge has a unique id or else only one might load
  * @param vanity: string - The part of your LinkedIn profile URL that comes after `linkedin.com/in/`, e.g. for `linkedin.com/in/ziping-liu-1932a029a/` the vanity is `ziping-liu-1932a029a`
  * @param type: "VERTICAL" | "HORIZONTAL" - This actually adjusts the size of the badge, where VERTICAL is smaller than HORIZONTAL, so by setting  size to "medium" and type to "VERTICAL" you get a smaller badge than setting size to "medium" and type to "HORIZONTAL", and so on.
+ * @param script_src: string - source url for the linkedin badge script, this is optional and only needed if you want to use a different script other than the one used in LinkedIn's badge documentation `(https://platform.linkedin.com/badges/js/profile.js)`
  */
 export type LinkedInBadgeProps = {
 
@@ -21,6 +22,7 @@ export type LinkedInBadgeProps = {
   className: string,
   style: React.CSSProperties,
   id: string,
+  script_src: string,
   name: string,
 }
 
@@ -44,7 +46,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
       if (!document.getElementById(id)) {
         const script = document.createElement("script");
         script.id = id;
-        script.src = "https://platform.linkedin.com/badges/js/profile.js";
+        script.src = props.script_src || "https://platform.linkedin.com/badges/js/profile.js";
         script.async = true;
         script.defer = true;
         document.body.appendChild(script);
@@ -55,7 +57,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
          script?.remove();
          const newScript = document.createElement("script");
          newScript.id = id;
-         newScript.src = "https://platform.linkedin.com/badges/js/profile.js";
+         newScript.src = props.script_src || "https://platform.linkedin.com/badges/js/profile.js";
          newScript.async = true;
          newScript.defer = true;
          document.body.appendChild(newScript);
@@ -67,7 +69,6 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   return(<div
     className={"badge-base LI-profile-badge" + (props.className ? ` ${props.className}` : "")}
     style={props.style}
-    id={props.id}
     data-locale={locale}
     data-size={size}
     data-theme={theme}

@@ -5,3 +5,4 @@ dist
 node_modules
 lib
 types
+test.html
