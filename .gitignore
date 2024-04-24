@@ -3,3 +3,5 @@ dist
 .AMAZON_LEGAL
 .ANDY_JASSY
 node_modules
+lib
+types

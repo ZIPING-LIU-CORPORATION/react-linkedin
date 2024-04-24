@@ -21,6 +21,7 @@ export type LinkedInBadgeProps = {
   className: string,
   style: React.CSSProperties,
   id: string,
+  name: string,
 }
 
 export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
@@ -31,10 +32,10 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const vanity = props.vanity || "☯liu";
   const version = props.version || "v1";
   const vanityEncoded = encodeURIComponent(vanity);
-
+  const name = props.name || "";
   const url = `https://www.linkedin.com/in/${vanityEncoded}?trk=profile-badge`;
 
-  const [componentDidMount, setComponentDidMount] = React.useState(false);
+  const [componentDidMount, setComponentDidMount] = React.useState<boolean>(false);
   React.useEffect(() => {
     // append the linkedin badge script to the body if it hasn't been appended yet
     if (!componentDidMount) {
@@ -64,7 +65,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   }, [componentDidMount, props.id]);
 
   return(<div
-    className={"badge-base LI-profile-badge" + (props.className ? " " + props.className : "")}
+    className={"badge-base LI-profile-badge" + (props.className ? ` ${props.className}` : "")}
     style={props.style}
     id={props.id}
     data-locale={locale}
@@ -78,7 +79,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
       className="badge-base__link LI-simple-link"
       href={url}
     >
-      Ziping Liu
+      {name}
     </a>
   </div>
   )
