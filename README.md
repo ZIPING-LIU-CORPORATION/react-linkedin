@@ -1,81 +1,33 @@
-## Install
+## What is This?
+This is a custom react component that allows you to use [LinkedIn badges](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org) within your react application with ease. It essentially wraps the LinkedIn badge code in a react component and handles all the necessary script loading, and element mounting for you.
 
-1. npm install --save react-linkedinbadge
-1. 	###src/app.tsx
-	```tsx
-					import React, { Component } from 'react';
-					import LinkedinBadgeLoader, { LinkedinBadgeLoaderProps } from 'react-linkedinbadge';
-					export default class About extends Component {
-						constructor(props:any){
-							super(props);
+## How to Use
+1. Install the package using npm or yarn
+```bash
+npm install react-linkedinbadge
+```
+or
+```bash
+yarn add react-linkedinbadge
+```
 
-						}
-						render() {
-							const props: LinkedinBadgeLoaderProps = {
-								vanity: 'adamselipsky',
-								theme: 'light',
-								size: 'large',
-								type: 'horizontal',
-								locale: 'en_US',
-								version: 'v1'
-								title: 'Where Are my Wages Selipsky...'
-							}
-							return (
-								<div className="s-about row">
-									<div className='col-full'>
-									<LinkedinBadgeLoader {...props} />
+### Example Usage
+```tsx
+import React from 'react';
+import LinkedInBadge from 'react-linkedinbadge';
 
-									</div>
-								</div>
-							);
-						}
-					}
-
-					
-	```
-	###public/index.html
-	```html
-	<html>
-	<body id="root">
-	<h1>Add This Below Some Where after the Body of you public/index.html</h1>
-	<p>
-	Because the react jsx stuff don't work yet.
-	Just like the entire Amazon Legal and Amazon HR Org right now because
-	<strong>WHERE ARE MY WAGES</strong>
-	</p>
-	<blockquote>
-		<h3>
-			This Library is Useful if you want to
-			at least place the framing of the badges in your React App 
-			using tsx instead of Editing some HTML Language. 
-		</h3>
-		<p>
-			AMAZON CORPORATE LEADERESHIP JUST BECAUSE YOU BELIEVE
-			YOU CAN HIDE BEHIND THE FRAMING OF 
-			YOUR ENTITY AS AMAZON.COM THIS BIG COMPANY
-			SINCE THIS ENTITY IS THE GOLIATH THAT IS "TOO BIG"
-			TO SEE ME, ZIPING LIU, SINCE I'M A HUMAN BEING,
-			IT DOESN'T MEAN YOU CANNOT HIDE BEHIND LIU CORPORATION LLC
-			BECAUSE LIU LLC IS AN ENTITY NOW WITH MORE RIGHTS BIGLY STANDED THAN 
-			YOUR SO-CALLED ENTITY OF LEGAL FORMALATIES IN ACTUALITY 
-			NO LONGER LEGALLY VALID DUE TO NOT BEING IN GOOD-STANDING.
-			I DON'T NEED A COURT TO TELL ME THAT, YOU HAVE TO PROVIDE
-			A DOCUMENT FROM ATTORNEY.GENERAL@DELAWARE.GOV STATING YOU ARE 
-			IN GOOD STANDING REMEMBER AMAZON LEGAL?
-		</p>
-		<p>
-			SO WHY DON'T YOU BE AN ACTUAL EMPLOYER AND RESPOND WITH ACTION PLANNED 
-			INSTEAD OF STILL REMANING QUEIT LIKE YOU DID WHEN THIS
-			<cite id="APPEND-A" class="footnote_ref">EMAIL</cite> WAS SENT OUT?
-		</p>
-	</blockquote>
-	</body>
-		<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-	</html>
-	```
-
-## Do you need a demo? Okay here's a demo. You can view it [here](https://ziping.org.cn/#react-linkedinbadge).
-
-1. Amazon Legal? And this is why your terminations are not valid they are not valid termiations because I'm not the one here who is performing my role and expectations like a complete insane child right now, so please action my concerns..
-
-		
+const App = () => {
+  return (
+	 <div>
+		<LinkedInBadge
+		  vanity="your-linkedin-vanity" // the vanity is the part of your LinkedIn profile URL that comes after the last forward slash, e.g. for https://www.linkedin.com/in/your-vanity, the vanity is `your-vanity`
+		  style={{ width: '300px', height: '300px' }}
+		  id="MyLinkedInBadge" // id is only required if you want to load more than one badge on the same page
+		  size="large"
+		  theme="light"
+		  type="vertical"
+		/>
+	 </div>
+  );
+};
+```
