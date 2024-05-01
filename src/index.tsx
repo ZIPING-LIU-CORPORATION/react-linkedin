@@ -1,7 +1,6 @@
+import React from "react";
+import LIRenderAll from "./LIRenderAll";
 
-
-import React from 'react';
- 
 /**
  * LinkedInBadge component props used by LinkedInBadge component to render the LinkedIn badge
  * @param locale: string - The locale of the badge
@@ -12,19 +11,42 @@ import React from 'react';
  * @param script_src: string - source url for the linkedin badge script, this is optional and only needed if you want to use a different script other than the one used in LinkedIn's badge documentation `(https://platform.linkedin.com/badges/js/profile.js)`
  */
 export type LinkedInBadgeProps = {
+  locale: string;
+  size: "medium" | "large";
+  theme: "light" | "dark";
+  type: "VERTICAL" | "HORIZONTAL";
+  vanity: string;
+  version: "v1" | "v2";
+  className: string;
+  style: React.CSSProperties;
+  id: string;
+  script_src: string;
+  name: string;
+};
 
-  locale: string,
-  size:  "medium" | "large",
-  theme: "light" | "dark",
-  type: "VERTICAL" | "HORIZONTAL",
-  vanity: string,
-  version: "v1" | "v2"
-  className: string,
-  style: React.CSSProperties,
-  id: string,
-  script_src: string,
-  name: string,
-}
+/**
+ * React component that renders a LinkedIn badge on a website.
+ *
+ * @param {Object} props - Component props.
+ * @param {string} [props.locale="en_US"] - The locale to use for the badge.
+ * @param {("medium"|"large")} [props.size="medium"] - The size of the badge.
+ * @param {("light"|"dark")} [props.theme="light"] - The theme of the badge.
+ * @param {("VERTICAL"|"HORIZONTAL")} [props.type="VERTICAL"] - The orientation of the badge.
+ * @param {string} [props.vanity="☯liu"] - The vanity name or URL to display on the badge.
+ * @param {("v1"|"v2")} [props.version="v1"] - The version of the badge to use.
+ * @param {string} [props.className] - Additional CSS classes to apply to the badge container.
+ * @param {React.CSSProperties} [props.style] - Inline styles to apply to the badge container.
+ * @param {string} [props.id] - The ID to assign to the badge container.
+ * @param {string} [props.script_src] - The URL of an external script to include for the badge.
+ * @param {string} [props.name] - The name to display on the badge.
+ * @returns {React.ReactElement} The rendered LinkedIn badge component.
+ * @description This implementation uses two React components - LinkedInBadge and LIRenderAll.
+ * LinkedInBadge is the parent component responsible for
+ * rendering the container and basic structure of the LinkedIn badge,
+ * while LIRenderAll is a child component that handles
+ * the rendering and management of the actual badge content.
+ * @argument The reason for this separation is that the badge content needs to be loaded asynchronously from a server, and the LIRenderAll component is responsible for making the necessary requests and handling the responses. By separating the concerns, the parent component can render the initial structure, and the child component can take care of the dynamic badge content.
+ */
 
 export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const locale = props.locale || "en_US";
@@ -36,52 +58,47 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const vanityEncoded = encodeURIComponent(vanity);
   const name = props.name || "";
   const url = `https://www.linkedin.com/in/${vanityEncoded}?trk=profile-badge`;
+  const refForDivBadge = React.useRef<HTMLDivElement>(null);
+  const [componentDidMount, setComponentDidMount] =
+    React.useState<boolean>(false);
+  const [badgeDidRender, setBadgeDidRender] = React.useState<boolean>(false);
 
-  const [componentDidMount, setComponentDidMount] = React.useState<boolean>(false);
   React.useEffect(() => {
-    // append the linkedin badge script to the body if it hasn't been appended yet
+    // check if div is rendered via ref
     if (!componentDidMount) {
-      // first check if the script has already been added by id
-      const id = props.id || "linkedin-badge-script";
-      if (!document.getElementById(id)) {
-        const script = document.createElement("script");
-        script.id = id;
-        script.src = props.script_src || "https://platform.linkedin.com/badges/js/profile.js";
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
+      if (refForDivBadge.current) {
+        console.info("div rendered");
         setComponentDidMount(true);
       } else {
-         // re-render the script by removing and re-adding it
-         const script = document.getElementById(id);
-         script?.remove();
-         const newScript = document.createElement("script");
-         newScript.id = id;
-         newScript.src = props.script_src || "https://platform.linkedin.com/badges/js/profile.js";
-         newScript.async = true;
-         newScript.defer = true;
-         document.body.appendChild(newScript);
-         setComponentDidMount(true);
+        console.info("div not rendered yet");
       }
     }
-  }, [componentDidMount, props.id]);
+  }, [componentDidMount, refForDivBadge]);
 
-  return(<div
-    className={"badge-base LI-profile-badge" + (props.className ? ` ${props.className}` : "")}
-    style={props.style}
-    data-locale={locale}
-    data-size={size}
-    data-theme={theme}
-    data-type={type}
-    data-vanity={vanity}
-    data-version={version}
-  >
-    <a
-      className="badge-base__link LI-simple-link"
-      href={url}
+  return (
+    <div
+      ref={refForDivBadge}
+      className={
+        "badge-base LI-profile-badge" +
+        (props.className ? ` ${props.className}` : "")
+      }
+      style={props.style}
+      data-locale={locale}
+      data-size={size}
+      data-theme={theme}
+      data-type={type}
+      data-vanity={vanity}
+      data-version={version}
     >
-      {name}
-    </a>
-  </div>
-  )
+      <a className="badge-base__link LI-simple-link" href={url}>
+        {name}{" "}
+        <LIRenderAll
+          {...props}
+          badges={refForDivBadge.current ? [refForDivBadge.current] : undefined}
+          badgeDidRender={badgeDidRender}
+          setBadgeDidRender={setBadgeDidRender}
+        />
+      </a>
+    </div>
+  );
 }

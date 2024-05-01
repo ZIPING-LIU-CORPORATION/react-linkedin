@@ -1,8 +1,7 @@
 {
   "name": "react-linkedinbadge",
-  "version": "4.0.2",
+  "version": "5.1.0",
   "description": "Embedded LinkedIn Badges via React fast Reactions as if all your linkedin accounts are being restricted in React-not time",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/ZIPING-LIU-CORPORATION/react-linkedin"
@@ -18,9 +17,8 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-
     "build": "npm run build:roll && npm run build:roll:cdn",
-     "build:roll:cdn": "rollup --bundleConfigAsCjs -c rollup.config.js",
+    "build:roll:cdn": "rollup --bundleConfigAsCjs -c rollup.config.js",
     "build:roll": "tsc -p tsconfig.json && rollup -c rollup.config.all.js --bundleConfigAsCjs",
     "prepublishOnly": "npm run build",
     "clean": "rimraf -rf lib && rm -rf types"
@@ -37,7 +35,7 @@
     "18"
   ],
   "author": "Ziping Liu <ziping@linkedinliu.com>",
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LINKEDINLIU.LICENSE.md",
   "devDependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.19.1",

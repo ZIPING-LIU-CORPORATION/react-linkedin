@@ -9,7 +9,7 @@ import typescript from 'rollup-plugin-typescript2';
 import terser from "@rollup/plugin-terser";
 
 const config = {
-    input: 'src/main.tsx',
+    input: 'src/main/index.tsx',
  
     output: [
         {
