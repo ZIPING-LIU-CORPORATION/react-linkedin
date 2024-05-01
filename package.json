@@ -1,13 +1,12 @@
 {
   "name": "react-linkedinbadge",
-  "version": "5.1.2024",
+  "version": "5.1.2025",
   "description": "The LinkedIn Badge Rendering React Component is a powerful tool for displaying LinkedIn badges on websites. With customizable options and support for both profile and entity badges, this component offers improved features over LinkedIn's basic implementation. It enhances code organization by separating badge container rendering from dynamic content rendering and efficiently handles asynchronous loading of content from LinkedIn servers. This component also allows for easy management of multiple badges on a page and provides a callback function for tracking badge rendering completion. Make sure to review the licensing information for proper usage.",
-  "readme": "SEE README IN README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/ZIPING-LIU-CORPORATION/react-linkedin"
   },
- 
+  "icon": "https://linkedinliu.com/favicon.ico",
   "keywords": [
     "Code organization",
     "React component",
@@ -95,6 +94,21 @@
     "babel.config.js",
     ".gitignore"
   ],
+  "maintainers": [
+    {
+      "name": "Ziping Liu",
+      "email": "ziping@linkedinliu.com",
+      "web": "https://ziping.org",
+      "linkedin": "https://linkedin.com/in/☯liu/",
+      "url": "https://ziping.org",
+      "github": "https://github.com/zipingl"
+    }
+  ],
+  "sponsor": {
+    "url": "https://linkedin.com",
+    "name": "LinkedIn",
+    "logo": "https://linkedin.com/favicon.ico"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build:roll && npm run build:roll:cdn",

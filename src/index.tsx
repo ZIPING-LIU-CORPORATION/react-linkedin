@@ -9,6 +9,8 @@ import LIRenderAll from "./LIRenderAll";
  * @param vanity: string - The part of your LinkedIn profile URL that comes after `linkedin.com/in/`, e.g. for `linkedin.com/in/ziping-liu-1932a029a/` the vanity is `ziping-liu-1932a029a`
  * @param type: "VERTICAL" | "HORIZONTAL" - This actually adjusts the size of the badge, where VERTICAL is smaller than HORIZONTAL, so by setting  size to "medium" and type to "VERTICAL" you get a smaller badge than setting size to "medium" and type to "HORIZONTAL", and so on.
  * @param script_src: string - source url for the linkedin badge script, this is optional and only needed if you want to use a different script other than the one used in LinkedIn's badge documentation `(https://platform.linkedin.com/badges/js/profile.js)`
+ * @param name: string - The name to display on the badge, this is optional and only needed if you want to display your name or some string of text that will either be show above or below your badge as a clickable link. If let empty, nothing well be shown.
+ * @param debug: boolean - If true, the badge will be rendered in debug mode, console logs will be seen at key points throughout the badge's rendering process within react's lifecycle methods.
  */
 export type LinkedInBadgeProps = {
   locale: string;
@@ -22,6 +24,7 @@ export type LinkedInBadgeProps = {
   id: string;
   script_src: string;
   name: string;
+  debug: boolean;
 };
 
 /**
@@ -48,6 +51,8 @@ export type LinkedInBadgeProps = {
  * @argument The reason for this separation is that the badge content needs to be loaded asynchronously from a server, and the LIRenderAll component is responsible for making the necessary requests and handling the responses. By separating the concerns, the parent component can render the initial structure, and the child component can take care of the dynamic badge content.
  */
 
+
+
 export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const locale = props.locale || "en_US";
   const size = props.size || "medium";
@@ -59,18 +64,26 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const name = props.name || "";
   const url = `https://www.linkedin.com/in/${vanityEncoded}?trk=profile-badge`;
   const refForDivBadge = React.useRef<HTMLDivElement>(null);
-  const [componentDidMount, setComponentDidMount] =
-    React.useState<boolean>(false);
+  const [componentDidMount, setComponentDidMount] = React.useState<boolean>(false);
   const [badgeDidRender, setBadgeDidRender] = React.useState<boolean>(false);
+  const logDebug = (message: string, type: string, componentName: string) => {
+    if (props.debug) {
+      const currentTime = new Date().toLocaleTimeString();
+      console.log(`[${currentTime}] ${type} - ${componentName}: ${message}`);
+    }
+  };
+
+
 
   React.useEffect(() => {
     // check if div is rendered via ref
     if (!componentDidMount) {
+      logDebug("checking if div is rendered", "info", "at LinkedInBadge Component React.useEffect with componentDidMount: false");
       if (refForDivBadge.current) {
-        console.info("div rendered");
+        logDebug("div rendered", "info", "at LinkedInBadge Component React.useEffect with componentDidMount: false");
         setComponentDidMount(true);
       } else {
-        console.info("div not rendered yet");
+        logDebug("div not rendered yet", "info", "at LinkedInBadge Component");
       }
     }
   }, [componentDidMount, refForDivBadge]);

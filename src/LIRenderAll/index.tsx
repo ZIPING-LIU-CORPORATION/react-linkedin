@@ -55,10 +55,23 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
     props.badges || null,
   );
 
-  console.info("RECIEVE DBADGES", badges, props.badges, props);
+ 
   const TRACKING_PARAM = props.trackingParam || "trk=profile-badge";
-  const childScripts: LIRenderAllProps["childScripts"] =
-    props.childScripts || {};
+  const childScripts: LIRenderAllProps["childScripts"] = props.childScripts || {};
+
+
+  const logDegug = (message: string, type: string, componentName: string) => {
+    if (props.debug) {
+      const currentTime = new Date().toLocaleTimeString();
+      console.log(`[${currentTime}] ${type} - ${componentName}: ${message}`);
+    }
+  }
+
+  
+
+
+
+
   /**
    * Handles a response from the server. Finds badge matching badgeUid and inserts badgeHtml there
    * @param badgeHtml: String representing contents of the badge
@@ -66,7 +79,9 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
    **/
   const responseHandler = React.useCallback(
     (badgeHtml: any, badgeUid: number) => {
-      // responsesReceived++;
+      logDegug( `Response received for badgeUid: ${badgeUid}`, "info", "at responseHandler in LIRenderAll");
+
+ 
       setResponsesReceived(responsesReceived + 1);
 
       let uid, isCreate;
@@ -74,7 +89,8 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
       var defaultHeight = 300; // max possible height
 
       for (const badge of badges || []) {
-        console.info("BADGE", badge);
+       
+        logDegug( `Checking badge with uid: ${badge.getAttribute("data-uid")}`, "info", "at responseHandler in LIRenderAll");
         // isCreate needed to prevent reloading artdeco script tag
         isCreate = badge.getAttribute("data-iscreate");
         uid = parseInt(badge.getAttribute("data-uid") || "0", 10);
@@ -94,8 +110,9 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
               `${iframeBody?.scrollWidth || defaultWidth + 5}`,
             );
           };
-          // Implementation of replaceScriptTags function goes here
+   
           const replaceScriptTags = (badge: Element, isCreate: any) => {
+            logDegug( `Replacing script tags for badge with uid: ${badge.getAttribute("data-uid")}`, "info", "at responseHandler in LIRenderAll");
             const scriptsFoundNow = badge.querySelectorAll("script");
             let i, len, script;
             for (i = 0, len = scriptsFoundNow.length; i < len; i++) {
@@ -112,6 +129,7 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
           iframe.style.display = "block";
           badge.appendChild(iframe);
           if (iframe.contentWindow) {
+            logDegug( `Writing badge markup for badge with uid: ${badge.getAttribute("data-uid")}`, "info", "at responseHandler in LIRenderAll");
             iframe.contentWindow.document.open();
             iframe.contentWindow.document.write(badgeMarkup);
             iframe.contentWindow.document.close();
@@ -133,12 +151,13 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
 
   const jsonp = React.useCallback(
     (url: string) => {
+    
       var script = document.createElement("script");
       script.src = url;
-      // scripts.push(script);
       const scriptsState = scripts;
       scriptsState.push(script);
       script.id = `${CALLBACK_NAME}-${scriptsState.length + 1}`;
+      logDegug( `Adding script tag with id: ${script.id}`, "info", "at jsonp in LIRenderAll");
       setScripts(scriptsState);
       document.body.appendChild(script);
     },
@@ -162,6 +181,8 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
           const value = attr.value;
           return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
         });
+
+        logDegug( `Badge key query params: ${keyValuePairs}`, "info", "at renderBadge in LIRenderAll");
 
         return keyValuePairs;
       };
@@ -255,23 +276,22 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
     return script;
   };
 
-  /*
-   * Makes Jsonp request, responses handles by CALLBACK_NAME
-   * @param url String: url of server to make request to
+ 
+
+ 
+  /**
+   * Effect hook to render badges when the component mounts, where renderBadge calls 
+   * are made and state status for the updated badges is set
    */
-
-  //Keeps track of child scripts to render
-  //  Array.prototype.slice.call(document.querySelectorAll(
-  //    state.BADGE_NAMES
-  // ));
-
   React.useEffect(() => {
     if (badges === null) {
+      logDegug( `Setting badges to: ${Array.prototype.slice.call(document.querySelectorAll(BADGE_NAMES))}`, "info", "at useEffect in LIRenderAll");
       setBadges(
         Array.prototype.slice.call(document.querySelectorAll(BADGE_NAMES)),
       );
     }
     if (badges && componentDidUpdate === false && badges.length > 0) {
+      logDegug( `Rendering badges: ${badges}`, "info", "at useEffect in LIRenderAll where componentDidUpdate: false, thus requiring  rendering to initiate");
       for (const badge of badges || []) {
         const rendered = badge.getAttribute("data-rendered");
         if (!rendered) {
@@ -282,7 +302,9 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
           if (props.setBadgeDidRender) {
             props.setBadgeDidRender(true);
           }
+          logDegug( `Badge rendered: ${badge}`, "info", "at useEffect in LIRenderAll, setting "+ `${CALLBACK_NAME} global as part of linkedin's rendering process to trigger and coupled specific to this current badge, vanity: ${props.vanity || badge.getAttribute("data-vanity")}`);
           (window as any)[CALLBACK_NAME] = responseHandler;
+
         }
       }
     }
@@ -335,10 +357,6 @@ function tryClean(
   CALLBACK_NAME: string,
   setScripts: (scripts: HTMLScriptElement[]) => void,
 ) {
-  //Clean up after all requests are done..
-  //Accounts for people including script more than once
-  // var done = (responsesReceived >= expectedResponses && expectedResponses > 0) || responsesReceived >= badges.length;
-  // const isDone  = (state.responsesReceived >= state.expectedResponses && state.expectedResponses > 0) || state.responsesReceived >= badges.length;
   const isDone =
     (responsesReceived >= expectedResponses && expectedResponses > 0) ||
     responsesReceived >= (badges?.length || 0);
