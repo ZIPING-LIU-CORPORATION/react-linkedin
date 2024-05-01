@@ -19,12 +19,27 @@ This implementation improves upon LinkedIn's provided [implementation](https://p
 - It handles asynchronous loading of badge content from the server.
 - It has a modular design with clear separation of concerns, making it easier to maintain and extend.
 
+## Demo
+Don't just take my word for it regarding the descriped improvements made. See the demo of this in action at [here](https://liu.zipihg.org/r/linkedinliu), in which you are clearly able to discern a measurable difference
+in the now more robost and controllable rendering of the LinkedIn Badge compoared to the method provided by LinkedI from its own [instructions](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org).
+
+
+### Note in legacy needs of the LinkedIn Badge
+Version 4.0 or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. Thus, feel free to use version 4 or lower in case you require rendering via LinkedIn's method in any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes fully adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React component's or libraries within your project.
+
+
+
+
 ## Installation
 
-To use this component in your React application, you can install it as an npm package or simply copy the source files into your project.
+To use this component in your React application, you can install it as an [npm](https://www.npmjs.com/package/react-linkedinbadge) or [yarn](https://yarnpkg.com/package/react-linkedinbadge)package or simply copy the source files into your project.
 
 ```bash
-npm install linkedin-badge-react
+npm install react-linkedinbadge
+```
+
+```bash
+yarn add react-linkedinbadge
 ```
 
 
