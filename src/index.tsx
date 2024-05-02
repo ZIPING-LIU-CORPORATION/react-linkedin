@@ -1,5 +1,5 @@
 import React from "react";
-import LIRenderAll from "./LIRenderAll";
+import LIRenderAll from './LIRenderAll'
 
 /**
  * LinkedInBadge component props used by LinkedInBadge component to render the LinkedIn badge
@@ -66,52 +66,67 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const refForDivBadge = React.useRef<HTMLDivElement>(null);
   const [componentDidMount, setComponentDidMount] = React.useState<boolean>(false);
   const [badgeDidRender, setBadgeDidRender] = React.useState<boolean>(false);
-  const logDebug = (message: string, type: string, componentName: string) => {
-    if (props.debug) {
-      const currentTime = new Date().toLocaleTimeString();
-      console.log(`[${currentTime}] ${type} - ${componentName}: ${message}`);
-    }
-  };
 
 
 
   React.useEffect(() => {
+    const logDebug = (message: string, type: string, componentName: string) => {
+      if (props.debug) {
+        const currentTime = new Date().toLocaleTimeString();
+        console.log(`[${currentTime}] ${type} - ${componentName}: ${message}`);
+      }
+    };
+
     // check if div is rendered via ref
     if (!componentDidMount) {
       logDebug("checking if div is rendered", "info", "at LinkedInBadge Component React.useEffect with componentDidMount: false");
       if (refForDivBadge.current) {
         logDebug("div rendered", "info", "at LinkedInBadge Component React.useEffect with componentDidMount: false");
         setComponentDidMount(true);
+
+
       } else {
         logDebug("div not rendered yet", "info", "at LinkedInBadge Component");
+
+
       }
     }
-  }, [componentDidMount, refForDivBadge]);
+  }, [componentDidMount, refForDivBadge, props.debug]);
+
 
   return (
-    <div
-      ref={refForDivBadge}
-      className={
-        "badge-base LI-profile-badge" +
-        (props.className ? ` ${props.className}` : "")
-      }
-      style={props.style}
-      data-locale={locale}
-      data-size={size}
-      data-theme={theme}
-      data-type={type}
-      data-vanity={vanity}
-      data-version={version}
-    >
-      <a className="badge-base__link LI-simple-link" href={url}>
-        {name}{" "}
-        <LIRenderAll
-          {...props}
-          badges={refForDivBadge.current ? [refForDivBadge.current] : undefined}
-          badgeDidRender={badgeDidRender}
-          setBadgeDidRender={setBadgeDidRender}
-        />
-      </a>
-    </div>
+    <>
+      <div
+        ref={refForDivBadge}
+        className={
+          "badge-base LI-profile-badge" +
+          (props.className ? ` ${props.className}` : "")
+        }
+        style={props.style}
+        data-locale={locale}
+        data-size={size}
+        data-theme={theme}
+        data-type={type}
+        data-vanity={vanity}
+        data-version={version}
+        id={props.id}
+      ><a className="badge-base__link LI-simple-link" target="_blank" rel="noopener noreferrer" href={url}>{name}</a>
+      </div>
+      {
+        refForDivBadge.current &&
+        badgeDidRender === false &&
+        componentDidMount && (
+          <LIRenderAll
+            badgeDidRender={badgeDidRender}
+            setBadgeDidRender={setBadgeDidRender}
+            badges={
+              Array.from(document.getElementsByClassName("badge-base LI-profile-badge"))
+            }
+
+            script_src={props.script_src}
+            debug={props.debug}
+          />
+        )}
+    </>
   );
 }
