@@ -7,14 +7,8 @@ The software application, hereafter referred to as "the Software," is protected 
 
  - Only with explicit approval from the author may LinkedIn engage in legitimate use of the Software. Failure to obtain prior consent constitutes an infringement of the author's exclusive rights under copyright law, as outlined in [Title 17, United States Code, Section 106](https://www.govinfo.gov/content/pkg/USCODE-2010-title17/pdf/USCODE-2010-title17-chap1-sec106.pdf). 
   - However, there exists a means for LinkedIn to acquire authorization to utilize this Software. To gain permission, the creator and author of the code must be contacted via the [email](mailto:Ziping%20Liu<ziping@linkedinliu.com>?subject=Permission%20Request%20for%20Software%20Usage&body=Respectuflly%20requesting%20permission%20to%20use%20the%20Software%20for%20commercial%20purposes%20on%20LinkedIn.%20Please%20provide%20approval%20for%20legitimate%20use%20of%20the%20Software%20within%20LinkedIn%20DEV%20platform%20as%20outlined%20in%20the%20terms%20and%20conditions%20of%20the%20license.) address provided in the project's `package.json` file. Upon receiving explicit approval, LinkedIn may then engage in legitimate usage of the Software. Failure to secure prior consent results in an infringement of the rights reserved exclusively to the author under copyright law.
-  
-  ) address provided in the project's `package.json` file. Upon receiving explicit approval, LinkedIn may then engage in legitimate usage of the Software. Failure to secure prior consent results in an infringement of the rights reserved exclusively to the author under copyright law.
-
-  address provided in the project's package.json file. Upon receiving explicit approval, LinkedIn may then engage in legitimate usage of the Software. Failure to secure prior consent results in an infringement of the rights reserved exclusively to the author under copyright law.
-  
-  ) address provided in the project's package.json file. Upon receiving explicit approval, LinkedIn may then engage in legitimate usage of the Software. Failure to secure prior consent results in an infringement of the rights reserved exclusively to the author under copyright law.
  
- Again to re-emphasize with as full clarity and standing, LinkedIn is expressly forbidden from using the Software, either directly or indirectly, for internal or external purposes, due to its commercial nature. Any attempt to bypass this restriction will be deemed a violation of these terms and will be subject to legal proceedings.
+ As resemphasis with for sake of clarity and standing, LinkedIn and/or its affilations are expressly forbidden from using the software wherein, by powers directly or indirectly, for internal or external purposes. Any and/or all attempts to bypass this restriction will be deemed a violation of these terms and will be subject to legal proceedings.
 
 
 
@@ -40,3 +34,6 @@ As a conscious being immersed in a rapidly transforming technological environmen
 
 > *As assurance to possible misunderstandings of my relationship with AI and AI like logic, I have no qualms about AI surpassing my literary abilities; instead, I worry about the potential downfall of artistic expression brought upon by poorly crafted texts produced by AI models mimicking the deficiencies inherent in human writing. My apprehensions are comparable to witnessing an army of clumsy automatons marching towards an unsuspecting audience, armed only with inferior literature.*
 </details>
+
+
+Ziping Liu does not have a legal team, or scribe and thus any type of action taken against Ziping Liu with a legally empowered authority private or public will be deemed as fully retaliable through court proceedings and all other means or channels outside of court proceedings where applicable. 

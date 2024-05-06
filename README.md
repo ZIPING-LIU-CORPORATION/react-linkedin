@@ -1,33 +1,31 @@
 
 # LinkedIn Badge Rendering React Component
 
-This is a React component that renders a LinkedIn badge on a website, allowing users to display their LinkedIn profile information or company details. It is an improved implementation of LinkedIn's provided code for embedding profile badges to any [website](https://linkedinliu.com/).
+This is a React component that renders a LinkedIn badge on a website, allowing users to display their LinkedIn profile information or company details. It is an improved implementation of LinkedIn's provided code for embedding profile badges to any [website](https://badge.ziping.org/).
 
-> [!TIP] FEATURES
-- Renders LinkedIn badges with customizable options (locale, size, theme, type, vanity, version), as well as now further parameteres that were not exposed due to limitations of not having yet implemented such forms of customizable optoins via LinkedIn's official badge rendering method which can clearly be specifiec now as part of the component's props.
+## FEATURES
+- Renders LinkedIn badges with customizable options (locale, size, theme, type, vanity, version), _**but now with even more options**_ that were not exposed due to limitations of not having yet implemented such forms of customizable optoins via LinkedIn's official badge rendering method which can clearly be specifiec now as part of the component's props.
 - Supports both profile badges and entity badges (e.g., company badges), as well as badges that can be configured beyond the current options provided from LinkedIn's implemenation.
 - Separates badge container rendering from dynamic badge content rendering for better code organization, and allows for aynconous and non-blocking rendering of multiple badges due to the nature of Linkedin"s own method having utilized a global param in handling the rendering of mulitple badges, that does not take into count how some badges may not appear on the page the same time as others (thus such badges would then miss the global train for rending).
-
-> [!IMPORTANT]  The usage of this component by LinkedIn employees is not allowed. It should not be referenced or used as inspiration without the author's contractual agreement.
-> *For complete details, do review the [license](/LINKEDINLIU.LICENSE.md) which explicilty provides detailed terms regarding the disallowance of usage with this component by any means in any assocations from commercial and/or for-profit entities.*
+- The usage of this component by LinkedIn employees is not allowed. It should not be referenced or used as inspiration without the author's contractual agreement.
+ *For complete details, do review the [license](/LINKEDINLIU.LICENSE.md) which explicilty provides detailed terms regarding the disallowance of usage with this component by any means in any assocations from commercial and/or for-profit entities.*
 
 ## DEMO
-> [!CAUTION] Don't just take my word for it regarding the descriped improvements made. See the demo of this in action, viewable <a href="https://liu.ziping.org/r/linkedinliu">&nbsp;here</a>.
- - Clearly see the measurable difference in the now more robost and controllable rendering of the LinkedIn Badge compared to LinkedIn's method based on its official [instructions](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org).
+Don't just take my word for it regarding the descriped improvements made. See the demo of this in action, viewable <a href="https://liu.ziping.org/r/linkedinliu">&nbsp;here</a>.
+ - See a measurable difference in the now more robost, efficient, and controlled rendering of the LinkedIn Badge compared to LinkedIn's method based on its official [instructions](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org).
 
 
-## Utilizling Linkedin's methods instead with this Com ponent
-Version 4.0 or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. I recommend using version 4 or lower in case you require rendering via LinkedIn's method in any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes fully adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React component's or libraries within your project.
+## Utilizing Linkedin's methods instead with this Component
+Version *4.0* or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. I recommend using version 4 or lower in case you require rendering via LinkedIn's method in any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes fully adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React component's or libraries within your project.
 
 ## Installation
-> [!IMPORTANT] To use this component in your React application, you can install it as a&nbsp; <a href="https://www.npmjs.com/package/react-linkedinbadge">NPM</a>, 
-> or <a href="https://yarnpkg.com/package/react-linkedinbadge">yarn</a> package or simply copy the source files into your project.
+To use this component in your React application, you can install it as a&nbsp;<a href="https://www.npmjs.com/package/react-linkedinbadge">NPM</a>, or <a href="https://yarnpkg.com/package/react-linkedinbadge">yarn</a> package.
 
-```pwsh
+```bash
 npm install react-linkedinbadge
 ```
 
-```powershell
+```sql
 yarn add react-linkedinbadge
 ```
 
@@ -55,7 +53,7 @@ const App = () => {
 ### CDN
 You can also load this component via CDN by adding the following script tag to your HTML file:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge@4/lib/linkedinbadge.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge/lib/linkedinbadge.min.js"></script>
 ```
 
 You then can use it from the global scope, via the variable `LinkedInBadge` from your `window` object. Be sure to also load React and ReactDOM before using this component in your html file and thus before loading the `linkedinbadge.min.js` script. 
@@ -67,7 +65,7 @@ Full example:
 <head>
    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge@4/lib/linkedinbadge.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge/lib/linkedinbadge.min.js"></script>
 </head>
 
 <body>
@@ -140,7 +138,7 @@ This implementation improves upon LinkedIn's provided code in the following ways
 Contributions to this project are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the project's GitHub repository.
 
 ## License
-See license in [LINKEDINLIU.LICENSE.md](LINKEDINLIU.LICENSE.md)
+See license in [LICENSE.md](LICENSE.md)
 
 ### Links
 - [NPM Package](https://www.npmjs.com/package/react-linkedinbadge)
