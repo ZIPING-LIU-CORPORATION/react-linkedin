@@ -1,14 +1,15 @@
 
 # LinkedIn Badge Rendering React Component
 
-This is a React component that renders a LinkedIn badge on a website, allowing users to display their LinkedIn profile information or company details. It is an improved implementation of LinkedIn's provided code for embedding profile badges to any [website](https://badge.ziping.org/).
+This React component enables you to display LinkedIn profile information or company details in your React-based web application through LinkedIn Profile Badges. It is an enhanced version of the code provided by LinkedIn for embedding profile badges on any website, rendering badges much faster and more controlled than the provided method.
 
+![image](https://media.licdn.com/dms/image/D562DAQFBcUnW_26OAw/profile-treasury-image-shrink_800_800/0/1714627539696?e=1715785200&v=beta&t=eN34MjcRb7HDaKHMdV8jo6o0gW1CusBV60uHfQp34d0)
 ## FEATURES
-- Renders LinkedIn badges with customizable options (locale, size, theme, type, vanity, version), _**but now with even more options**_ that were not exposed due to limitations of not having yet implemented such forms of customizable optoins via LinkedIn's official badge rendering method which can clearly be specifiec now as part of the component's props.
+- This component can render LinkedIn badges with customizable options such as locale, size, theme, type, vanity, and version. It now offers even more options that were previously unavailable due to limitations in LinkedIn's official badge rendering method. These additional options can be specific as part of the component's props.
 - Supports both profile badges and entity badges (e.g., company badges), as well as badges that can be configured beyond the current options provided from LinkedIn's implemenation.
 - Separates badge container rendering from dynamic badge content rendering for better code organization, and allows for aynconous and non-blocking rendering of multiple badges due to the nature of Linkedin"s own method having utilized a global param in handling the rendering of mulitple badges, that does not take into count how some badges may not appear on the page the same time as others (thus such badges would then miss the global train for rending).
 - The usage of this component by LinkedIn employees is not allowed. It should not be referenced or used as inspiration without the author's contractual agreement.
- *For complete details, do review the [license](/LINKEDINLIU.LICENSE.md) which explicilty provides detailed terms regarding the disallowance of usage with this component by any means in any assocations from commercial and/or for-profit entities.*
+ *For complete details, do review the [license](/LICENSE.md) which explicilty provides detailed terms regarding the disallowance of usage with this component by any means in any assocations from commercial and/or for-profit entities.*
 
 ## DEMO
 Don't just take my word for it regarding the descriped improvements made. See the demo of this in action, viewable <a href="https://liu.ziping.org/r/linkedinliu">&nbsp;here</a>.
@@ -50,7 +51,14 @@ const App = () => {
 };
 ```
 
-### CDN
+#### Helpful Links
+- [NPM Package](https://www.npmjs.com/package/react-linkedinbadge)
+- [Yarn Package](https://yarnpkg.com/package/react-linkedinbadge)
+- [GitHub Repository](https://github.com/ziping-liu-corporation/react-linkedin)
+- [LinkedIn Badge Creation](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org)
+- [JSDELIVR CDN](https://www.jsdelivr.com/package/npm/react-linkedinbadge)
+
+### CDN Usage
 You can also load this component via CDN by adding the following script tag to your HTML file:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge/lib/linkedinbadge.min.js"></script>
@@ -59,7 +67,7 @@ You can also load this component via CDN by adding the following script tag to y
 You then can use it from the global scope, via the variable `LinkedInBadge` from your `window` object. Be sure to also load React and ReactDOM before using this component in your html file and thus before loading the `linkedinbadge.min.js` script. 
 
 Full example:
-```html
+```fortran
 <html>
 
 <head>
@@ -140,9 +148,3 @@ Contributions to this project are welcome! If you find any issues or have sugges
 ## License
 See license in [LICENSE.md](LICENSE.md)
 
-### Links
-- [NPM Package](https://www.npmjs.com/package/react-linkedinbadge)
-- [Yarn Package](https://yarnpkg.com/package/react-linkedinbadge)
-- [GitHub Repository](https://github.com/ziping-liu-corporation/react-linkedin)
-- [LinkedIn Badge Creation](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org)
-- [JSDELIVR CDN](https://www.jsdelivr.com/package/npm/react-linkedinbadge)
