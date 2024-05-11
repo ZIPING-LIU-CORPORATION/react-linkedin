@@ -23,6 +23,7 @@ export type LinkedInBadgeProps = {
   style: React.CSSProperties;
   id: string;
   script_src: string;
+  useLinkedInApiUrlPure: boolean;
   name: string;
   debug: boolean;
 };
@@ -42,6 +43,7 @@ export type LinkedInBadgeProps = {
  * @param {string} [props.id] - The ID to assign to the badge container.
  * @param {string} [props.script_src] - The URL of an external script to include for the badge.
  * @param {string} [props.name] - The name to display on the badge.
+ * @param {useLinkedInApiUrlPure} [props.useLinkedInApiUrlPure] - Defaults as false, if set true, when call LinkedIn's badge API, the API request won't be proxied through Ziping Liu's server. The proxied request is used to remove security issues that some browsers may have due to the returned content of LinkedIn's API having certain headers that the browser regards as possibly harmful (although in this case its a red herring given badge content from LinkedIn does not contain malicious content or content that may be inappropriately used to harm the user's computer).
  * @returns {React.ReactElement} The rendered LinkedIn badge component.
  * @description This implementation uses two React components - LinkedInBadge and LIRenderAll.
  * LinkedInBadge is the parent component responsible for
@@ -60,6 +62,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const type = props.type || "VERTICAL";
   const vanity = props.vanity || "☯liu";
   const version = props.version || "v1";
+  const useLinkedInApiUrlPure = props.useLinkedInApiUrlPure || false;
   const vanityEncoded = encodeURIComponent(vanity);
   const name = props.name || "";
   const url = `https://www.linkedin.com/in/${vanityEncoded}?trk=profile-badge`;
@@ -117,12 +120,13 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
         badgeDidRender === false &&
         componentDidMount && (
           <LIRenderAll
+            useLinkedInApiUrlPure={useLinkedInApiUrlPure}
             badgeDidRender={badgeDidRender}
             setBadgeDidRender={setBadgeDidRender}
             badges={
               Array.from(document.getElementsByClassName("badge-base LI-profile-badge"))
             }
-
+            
             script_src={props.script_src}
             debug={props.debug}
           />
