@@ -60,7 +60,7 @@ export async function generateUidFromProps(
         hash = (hash << 5) - hash + ip.charCodeAt(i);
       }
     }
-  }
+  } 
 
   const currentTimestamp = Date.now();
   hash = (hash << 5) - hash + currentTimestamp;

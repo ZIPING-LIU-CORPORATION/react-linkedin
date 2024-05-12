@@ -113,7 +113,7 @@ const LinkedInBadgeSelfRender = (props: {
   } | null>(null);
 
   const [uid, setUid] = React.useState<string | null>(null);
-
+ 
   React.useEffect(() => {
     const { locale, size, theme, type, vanity, version, isCreatePage, entity } =
       props;
