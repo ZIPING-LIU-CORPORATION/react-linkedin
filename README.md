@@ -37,6 +37,7 @@ yarn add react-linkedinbadge
 ```fortran
 import React from 'react';
 import LinkedInBadge from 'react-linkedinbadge';
+import 'react-linkedinbadge/src/LinkedInBadge.css';
 
 const App = () => {
   return (

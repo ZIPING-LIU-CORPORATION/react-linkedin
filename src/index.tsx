@@ -1,6 +1,6 @@
 import React from "react";
 import LIRenderAll from "./LIRenderAll";
-import "./LinkedInBadge.css";
+ 
 /**
  * LinkedInBadge component props used by LinkedInBadge component to render the LinkedIn badge
  * @param locale: string - The locale of the badge
