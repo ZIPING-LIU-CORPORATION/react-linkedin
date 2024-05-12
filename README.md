@@ -34,21 +34,33 @@ yarn add react-linkedinbadge
 
 
 ### Example Usage
-```fortran
+```jsx
 import React from 'react';
-import LinkedInBadge from 'react-linkedinbadge';
+import LinkedInBadge, {LinkedInBadgeProps} from 'react-linkedinbadge';
+/* 
+ * Import the react-linkedinbadge stylesheet so that the badge is styled correctly
+ * This is required as the rendering of the badge is now done fully within the React component
+ * and not through a server-side script. To utilize the server-side method, set the 
+ * `useLinkedInApiUrlPure` prop to `true` when using the `LinkedInBadge` component.
+ */
 import 'react-linkedinbadge/src/LinkedInBadge.css';
 
 const App = () => {
+  const LinkedInBadgeProps: LinkedInBadgeProps = {
+   /**
+      * The vanity is the part of your LinkedIn profile URL that 
+      * comes after the last forward slash, 
+      * e.g. for https://www.linkedin.com/in/your-vanity, 
+      * the vanity is `your-vanity`
+      */
+    vanity: "your-linkedin-vanity",
+    size: "large",
+    theme: "light",
+    type: "vertical",
+  };
   return (
 	 <div>
-		<LinkedInBadge
-		  vanity="your-linkedin-vanity" // the vanity is the part of your LinkedIn profile URL that comes after the last forward slash, e.g. for https://www.linkedin.com/in/your-vanity, the vanity is `your-vanity`
-		  id="MyLinkedInBadge" // id is only required if you want to load more than one badge on the same page
-		  size="large"
-		  theme="light"
-		  type="vertical"
-		/>
+		<LinkedInBadge {...LinkedInBadgeProps}/>
 	 </div>
   );
 };
@@ -111,7 +123,6 @@ Full example:
  `LinkedInBadge` is the parent component responsible for rendering the container and basic structure of the LinkedIn badge, while `LIRenderAll` is a child component that handles the rendering and management of the actual badge content.
 
 The reason for this separation is that the badge content needs to be loaded asynchronously from a server, and the `LIRenderAll` component is responsible for making the necessary requests and handling the responses. By separating the concerns, the parent component can render the initial structure, and the child component can take care of the dynamic badge content.
-</details>
 
 ### `LinkedInBadge`
 
@@ -124,6 +135,11 @@ The `LIRenderAll` component is a child component that handles the rendering and 
 The component uses various hooks and callbacks to manage the state and lifecycle of the badge rendering process. It keeps track of the number of expected and received responses from the server, handles the insertion of the badge content into the appropriate container, and manages the replacement of any script tags within the badge markup.
 
 The separation of concerns between `LinkedInBadge` and `LIRenderAll` allows for a more modular and maintainable codebase, where the responsibilities of rendering the badge container and managing the dynamic badge content are clearly separated.
+
+Note, with versions 5.11 and above, by default, `LIRenderAll` is not used to render the badge content. The badge content is fully  rendered on the client-side and within the `LinkedInBadge` component itself. This allows for better control and management of the badge rendering process, as well as improved performance and reliability. 
+To use the `LIRenderAll` component, set the `useLinkedInApiUrlPure` prop to `true` when using `LinkedInBadge` component.
+</details>
+
 
 ## Improvements over LinkedIn's Implementation
 
