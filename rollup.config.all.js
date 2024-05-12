@@ -8,6 +8,7 @@ import replace from "@rollup/plugin-replace";
 import typescript from "rollup-plugin-typescript2";
 import terser from "@rollup/plugin-terser";
 import { dts } from "rollup-plugin-dts";
+import css from 'rollup-plugin-import-css';
 import packageJson from "./package.json";
 const outputCommonConf = {
   sourcemap: "inline",
@@ -56,7 +57,8 @@ export default [
         "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
         preventAssignment: true,
       }),
-
+      
+      css(),
       resolve(),
       commonjs(),
       typescript({
@@ -79,9 +81,5 @@ export default [
     ],
     external: ["react", "react-dom", "styled-components"],
   },
-  {
-    input: "types/index.d.ts",
-    output: [{ file: "lib/bundle.esm.d.ts", format: "esm" }],
-    plugins: [dts()],
-  },
+ 
 ];
