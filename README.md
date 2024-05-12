@@ -77,6 +77,7 @@ Full example:
    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge/lib/linkedinbadge.min.js"></script>
+   <link href='https://cdn.jsdelivr.net/npm/react-linkedinbadge/src/LinkedInBadge.css' rel='stylesheet' />
 </head>
 
 <body>

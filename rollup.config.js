@@ -3,7 +3,6 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import typescript from "rollup-plugin-typescript2";
-import css from "rollup-plugin-import-css";
 import terser from "@rollup/plugin-terser";
 
 const config = {
@@ -21,7 +20,6 @@ const config = {
     },
   ],
   plugins: [
-    css(),
     typescript({
       useTsconfigDeclarationDir: true,
       sourceMap: true,
