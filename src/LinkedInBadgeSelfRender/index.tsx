@@ -178,7 +178,6 @@ const LinkedInBadgeSelfRender = (props: {
     };
 
     if (profileData === null && uid !== null) {
-      console.info("sending request", JSON.stringify(payloadBodyParams));
       xmlnew.send(JSON.stringify(payloadBodyParams));
     }
   }, [
@@ -191,7 +190,7 @@ const LinkedInBadgeSelfRender = (props: {
     props.isCreatePage,
     props.entity,
     profileData,
-    uid,
+    uid
   ]);
 
   const widthSet = React.useMemo(() => {
