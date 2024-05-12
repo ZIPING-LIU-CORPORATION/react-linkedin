@@ -29,14 +29,12 @@ export async function generateUidFromProps(
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const value = props[key];
-    console.info("key", key, "value", value);
     if (value && typeof value === "string") {
       for (let j = 0; j < value.length; j++) {
         hash = (hash << 5) - hash + value.charCodeAt(j);
       }
     }
   }
-  console.info("hash2", hash);
   if (hostname && typeof hostname === "string") {
     for (let i = 0; i < hostname.length; i++) {
       hash = (hash << 5) - hash + hostname.charCodeAt(i);
