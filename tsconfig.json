@@ -1,32 +1,25 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable" ,"ES6", "ES2022"],    
+    "lib": ["DOM", "DOM.Iterable", "ES6", "ES2022"],
     "baseUrl": "./",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    
+
     "module": "ESNext",
     "declaration": true,
-    
-		"declarationMap": true,
+
+    "declarationMap": true,
     "resolveJsonModule": true,
     "emitDeclarationOnly": false,
     "outDir": "lib",
-		"declarationDir": "types",
+    "declarationDir": "types",
     "jsx": "react",
-    "moduleResolution": "Node",   
+    "moduleResolution": "Node"
   },
-  "include": [
-    "./src",
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "types"
-  ]
+  "include": ["./src"],
+  "exclude": ["node_modules", "build", "dist", "types"]
 }

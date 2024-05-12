@@ -1,7 +1,7 @@
 import React from "react";
 import LIRenderAll from "./LIRenderAll";
 import LinkedInBadgeSelfRender from "./LinkedInBadgeSelfRender";
- 
+
 /**
  * LinkedInBadge component props used by LinkedInBadge component to render the LinkedIn badge
  * @member locale: string - The locale to use for the badge, this is optional and only needed if you want to change the locale of the badge, by default it is set to "en_US"
@@ -171,7 +171,3 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
     </>
   );
 }
-
-
-
-

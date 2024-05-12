@@ -1,5 +1,5 @@
-
 # LinkedIn Badges with React
+
 This React custom component enables you to display LinkedIn profile information or company details in your React-based web application through LinkedIn Profile Badges. It is an enhanced version of the code provided by LinkedIn for embedding profile badges on any website, rendering badges much faster and more controlled than the provided method.
 
    <a href='https://linkedinliu.com' target="_blank" rel="noopener noreferrer" >
@@ -7,21 +7,25 @@ This React custom component enables you to display LinkedIn profile information 
    </a>
 
 ## FEATURES
+
 - This component can render LinkedIn badges with customizable options such as locale, size, theme, type, vanity, and version. It now offers even more options that were previously unavailable due to limitations in LinkedIn's official badge rendering method. These additional options can be specific as part of the component's props.
 - Supports both profile badges and entity badges (e.g., company badges), as well as badges that can be configured beyond the current options provided from LinkedIn's implemenation.
 - Separates badge container rendering from dynamic badge content rendering for better code organization, and allows for aynconous and non-blocking rendering of multiple badges due to the nature of Linkedin"s own method having utilized a global param in handling the rendering of mulitple badges, that does not take into count how some badges may not appear on the page the same time as others (thus such badges would then miss the global train for rending).
 - The usage of this component by LinkedIn employees is not allowed. It should not be referenced or used as inspiration without the author's contractual agreement.
- *For complete details, do review the [license](/LICENSE.md) which explicilty provides detailed terms regarding the disallowance of usage with this component by any means in any assocations from commercial and/or for-profit entities.*
+  _For complete details, do review the [license](/LICENSE.md) which explicilty provides detailed terms regarding the disallowance of usage with this component by any means in any assocations from commercial and/or for-profit entities._
 
 ## DEMO
-Don't just take my word for it regarding the descriped improvements made. See the demo of this in action, viewable <a href="https://liu.ziping.org/r/linkedinliu">&nbsp;here</a>.
- - See a measurable difference in the now more robost, efficient, and controlled rendering of the LinkedIn Badge compared to LinkedIn's method based on its official [instructions](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org).
 
+Don't just take my word for it regarding the descriped improvements made. See the demo of this in action, viewable <a href="https://liu.ziping.org/r/linkedinliu">&nbsp;here</a>.
+
+- See a measurable difference in the now more robost, efficient, and controlled rendering of the LinkedIn Badge compared to LinkedIn's method based on its official [instructions](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org).
 
 ## Utilizing Linkedin's methods instead with this Component
-Version *4.0* or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. I recommend using version 4 or lower in case you require rendering via LinkedIn's method in any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes fully adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React component's or libraries within your project.
+
+Version _4.0_ or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. I recommend using version 4 or lower in case you require rendering via LinkedIn's method in any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes fully adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React component's or libraries within your project.
 
 ## Installation
+
 To use this component in your React application, you can install it as a&nbsp;<a href="https://www.npmjs.com/package/react-linkedinbadge">NPM</a>, or <a href="https://yarnpkg.com/package/react-linkedinbadge">yarn</a> package.
 
 ```bash
@@ -32,25 +36,25 @@ npm install react-linkedinbadge
 yarn add react-linkedinbadge
 ```
 
-
 ### Example Usage
+
 ```jsx
 import React from 'react';
 import LinkedInBadge, {LinkedInBadgeProps} from 'react-linkedinbadge';
-/* 
+/*
  * Import the react-linkedinbadge stylesheet so that the badge is styled correctly
  * This is required as the rendering of the badge is now done fully within the React component
- * and not through a server-side script. To utilize the server-side method, set the 
+ * and not through a server-side script. To utilize the server-side method, set the
  * `useLinkedInApiUrlPure` prop to `true` when using the `LinkedInBadge` component.
  */
 import 'react-linkedinbadge/src/LinkedInBadge.css';
-// Note: in case this stylesheet 
+// Note: in case this stylesheet
 // causes conflicts with your existing styles,
 // use 'react-linkedinbadge/src/style.css' instead,
 // which is a barebones stylesheet that only contains,
 // style definitions used for profile badge elements.
 // Do to the barebones nature of this stylesheet,
-// some additional styling may be needed 
+// some additional styling may be needed
 // to ensure the badge is displayed correctly.
 // FYI the demo uses the minimal stylesheet.
 
@@ -58,9 +62,9 @@ import 'react-linkedinbadge/src/LinkedInBadge.css';
 const App = () => {
   const LinkedInBadgeProps: LinkedInBadgeProps = {
    /**
-      * The vanity is the part of your LinkedIn profile URL that 
-      * comes after the last forward slash, 
-      * e.g. for https://www.linkedin.com/in/your-vanity, 
+      * The vanity is the part of your LinkedIn profile URL that
+      * comes after the last forward slash,
+      * e.g. for https://www.linkedin.com/in/your-vanity,
       * the vanity is `your-vanity`
       */
     vanity: "your-linkedin-vanity",
@@ -77,6 +81,7 @@ const App = () => {
 ```
 
 #### Helpful Links
+
 - [NPM Package](https://www.npmjs.com/package/react-linkedinbadge)
 - [Yarn Package](https://yarnpkg.com/package/react-linkedinbadge)
 - [GitHub Repository](https://github.com/ziping-liu-corporation/react-linkedin)
@@ -84,14 +89,17 @@ const App = () => {
 - [JSDELIVR CDN](https://www.jsdelivr.com/package/npm/react-linkedinbadge)
 
 ### CDN Usage
+
 You can also load this component via CDN by adding the following script tag to your HTML file:
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/react-linkedinbadge/lib/linkedinbadge.min.js"></script>
 ```
 
-You then can use it from the global scope, via the variable `LinkedInBadge` from your `window` object. Be sure to also load React and ReactDOM before using this component in your html file and thus before loading the `linkedinbadge.min.js` script. 
+You then can use it from the global scope, via the variable `LinkedInBadge` from your `window` object. Be sure to also load React and ReactDOM before using this component in your html file and thus before loading the `linkedinbadge.min.js` script.
 
 Full example:
+
 ```fortran
 <html>
 
@@ -118,7 +126,7 @@ Full example:
       const rootelem = document.getElementById('root');
       if (rootelem) {
          ReactDOM.render(Reactelem, rootelem);
-      } 
+      }
    </script>
 </body>
 
@@ -130,7 +138,7 @@ Full example:
 <details><summary>This implementation uses two React components: `LinkedInBadge` and `LIRenderAll`.
 </summary>
 
- `LinkedInBadge` is the parent component responsible for rendering the container and basic structure of the LinkedIn badge, while `LIRenderAll` is a child component that handles the rendering and management of the actual badge content.
+`LinkedInBadge` is the parent component responsible for rendering the container and basic structure of the LinkedIn badge, while `LIRenderAll` is a child component that handles the rendering and management of the actual badge content.
 
 The reason for this separation is that the badge content needs to be loaded asynchronously from a server, and the `LIRenderAll` component is responsible for making the necessary requests and handling the responses. By separating the concerns, the parent component can render the initial structure, and the child component can take care of the dynamic badge content.
 
@@ -146,10 +154,10 @@ The component uses various hooks and callbacks to manage the state and lifecycle
 
 The separation of concerns between `LinkedInBadge` and `LIRenderAll` allows for a more modular and maintainable codebase, where the responsibilities of rendering the badge container and managing the dynamic badge content are clearly separated.
 
-Note, with versions 5.11 and above, by default, `LIRenderAll` is not used to render the badge content. The badge content is fully  rendered on the client-side and within the `LinkedInBadge` component itself. This allows for better control and management of the badge rendering process, as well as improved performance and reliability. 
+Note, with versions 5.11 and above, by default, `LIRenderAll` is not used to render the badge content. The badge content is fully rendered on the client-side and within the `LinkedInBadge` component itself. This allows for better control and management of the badge rendering process, as well as improved performance and reliability.
 To use the `LIRenderAll` component, set the `useLinkedInApiUrlPure` prop to `true` when using `LinkedInBadge` component.
-</details>
 
+</details>
 
 ## Improvements over LinkedIn's Implementation
 
@@ -176,5 +184,5 @@ This implementation improves upon LinkedIn's provided code in the following ways
 Contributions to this project are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the project's GitHub repository.
 
 ## License
-See license in [LICENSE.md](LICENSE.md)
 
+See license in [LICENSE.md](LICENSE.md)
