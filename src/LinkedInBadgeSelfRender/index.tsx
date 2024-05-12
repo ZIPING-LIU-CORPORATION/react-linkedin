@@ -207,7 +207,7 @@ const LinkedInBadgeSelfRender = (props: {
                <LinkedInIcon theme={props.theme} />
             </div>
             <div className="profile-badge__content">
-               {profileData && (
+               {profileData?.profileImageSrc ? (
                   <img
                      className={
                         `artdeco-entity-image ` +
@@ -216,9 +216,25 @@ const LinkedInBadgeSelfRender = (props: {
                      }
                      title={profileData?.profileName}
                      alt={profileData?.profileName}
-                     src={profileData?.profileImageSrc || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"}
+                     src={profileData?.profileImageSrc}
                   />
-               )}
+               ) :
+                  <figure
+                     title={profileData?.profileName}
+                  ><svg
+                     className={
+                        `artdeco-entity-image ` +
+                        `artdeco-entity-image--circle-4 ` +
+                        `profile-badge__content-profile-image`
+                     }
+                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" id="person-accent-4">
+                        <path fill="#e7e2dc" d="M0 0h128v128H0z" />
+                        <path d="M88.41 84.67a32 32 0 10-48.82 0 66.13 66.13 0 0148.82 0z" fill="#788fa5" />
+                        <path d="M88.41 84.67a32 32 0 01-48.82 0A66.79 66.79 0 000 128h128a66.79 66.79 0 00-39.59-43.33z" fill="#9db3c8" />
+                        <path d="M64 96a31.93 31.93 0 0024.41-11.33 66.13 66.13 0 00-48.82 0A31.93 31.93 0 0064 96z" fill="#56687a" />
+                     </svg></figure>
+               }
+
                <h3 className="profile-badge__content-profile-name" itemProp="name">
                   {profileData?.profileName && (
                      <a
@@ -297,8 +313,8 @@ const LinkedInBadgeSelfRender = (props: {
                   target="_blank"
                   rel="noopener noreferrer"
                   href={`${props.vanity
-                        ? `https://www.linkedin.com/in/${props.vanity}?trk=profile-badge`
-                        : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
+                     ? `https://www.linkedin.com/in/${props.vanity}?trk=profile-badge`
+                     : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
                      }`}
                >
                   {props.name || ""}
