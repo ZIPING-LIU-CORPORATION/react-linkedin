@@ -10,12 +10,21 @@ const LinkedInIcon = ({
 }) => {
    return (
       <i
-         style={style}
+      
          className={
             `profile-badge__header-logo-icon ` +
             `profile-badge__header-logo-icon--${theme === "light" ? "light" : "dark"
             }`
          }
+         style={{
+            width: '84px',
+            height: '21px',
+            display: 'inline-block',
+            fill: theme === 'light' ? '#0a66c2' : '#fff',
+            color: theme === 'light' ? '#0a66c2' : '#fff',
+            
+            ...style,
+         }}
          aria-hidden="true"
       >
          <svg
@@ -188,20 +197,26 @@ const LinkedInBadgeSelfRender = (props: {
    }, [props.size, props.type]);
 
    return (
-      <div style={props.style} className="profile-badge-reacted">
+      <div id={props.id} 
+
+          style={props.style} className={
+            "profile-badge-reacted" + (props.className ? ` ${props.className}` : "")
+          }>
          <div
             className={
                `profile-badge profile-badge--width-${widthSet} ` +
                `profile-badge--${props.theme === "light" ? "light" : "dark"}`
             }
-            lang="en"
+            lang={props.locale?.replace(/_[\w]*$/, "") || "en"}
             dir="ltr"
+          
          >
             <div
                className={
                   `profile-badge__header ` +
                   `profile-badge__header--${props.theme === "light" ? "light" : "dark"}`
                }
+             
             >
                <span className="sr-only">LinkedIn</span>
                <LinkedInIcon theme={props.theme} />
