@@ -24,6 +24,8 @@ Don't just take my word for it regarding the descriped improvements made. See th
 
 Version _4.0_ or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. I recommend using version 4 or lower in case you require rendering via LinkedIn's method in any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes fully adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React component's or libraries within your project.
 
+For more details the different versions that are maintained and supported which render the profile badges in different forms, please see the [SECURITY.md](SECURITY.md)
+
 ## Installation
 
 To use this component in your React application, you can install it as a&nbsp;<a href="https://www.npmjs.com/package/react-linkedinbadge">NPM</a>, or <a href="https://yarnpkg.com/package/react-linkedinbadge">yarn</a> package.
