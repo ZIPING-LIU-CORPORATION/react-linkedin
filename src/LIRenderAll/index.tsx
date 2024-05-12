@@ -1,6 +1,7 @@
 
 import React from "react";
 import { LinkedInBadgeProps } from "../index";
+import { generateUidFromProps } from "src/utils";
 export type ChildScripts = { [x: number | string]: unknown };
 
 export type LIRenderAllProps = {
@@ -40,6 +41,8 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
    const [componentDidUpdate, setComponentDidUpdate] = React.useState<boolean>(
       props.badgeDidRender || false,
    );
+
+   const [uid, setUid] = React.useState<string|null>(null);
 
    /**
     * State variables are not used because these values are updated in the responseHandler function,
@@ -268,14 +271,13 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
          const isEI = badge.hasAttribute("data-ei") || false;
          const entity = badge.getAttribute("data-entity") || "PROFILE";
          const isCreatePage = badge.hasAttribute("data-iscreate") || false;
-         const uid = Math.round(1000000 * Math.random());
          let baseUrl = generateUrl(useLinkedInApiUrlPure, isEI);
          console.warn("baseUrl", baseUrl)
          let queryParams = [
             "locale=" + encodeURIComponent(locale),
             "badgetype=" + encodeURIComponent(type),
             "badgetheme=" + encodeURIComponent(theme),
-            "uid=" + encodeURIComponent(uid),
+            "uid=" + encodeURIComponent(uid!),
             "version=" + encodeURIComponent(version),
          ];
 
@@ -311,6 +313,7 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
          jsonp,
          logDegug,
          TRACKING_PARAM,
+         uid,
       ],
    );
 
@@ -370,25 +373,34 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
          setBadges(queriedBadges);
       }
 
-      for (const badge of queriedBadges) {
-         const rendered = badge.getAttribute("data-rendered");
-         if (!rendered) {
+      if(uid === null) {
+         generateUidFromProps(props,props.generateUidWithoutApi).then((uid) => {
+            setUid(uid);
+         });
+      }
 
-            logDegug(`"Badge not rendered yet" - badgeid: ${badge.id}, "componentDidUpdate", ${componentDidUpdate}`, "info", "at second useEffect in LIRenderAll, setting " + `${CALLBACK_NAME} global as part of linkedin's rendering process to trigger and coupled specific to this current badge, vanity: ${props.vanity || badge.getAttribute("data-vanity")}`);
-            badge.setAttribute("data-rendered", `${true}`);
+      if(uid !== null) {
 
-            renderBadge(badge);
-            setComponentDidUpdate(true);
-            if (props.setBadgeDidRender) {
-               props.setBadgeDidRender(true);
+         for (const badge of queriedBadges) {
+            const rendered = badge.getAttribute("data-rendered");
+            if (!rendered) {
+   
+               logDegug(`"Badge not rendered yet" - badgeid: ${badge.id}, "componentDidUpdate", ${componentDidUpdate}`, "info", "at second useEffect in LIRenderAll, setting " + `${CALLBACK_NAME} global as part of linkedin's rendering process to trigger and coupled specific to this current badge, vanity: ${props.vanity || badge.getAttribute("data-vanity")}`);
+               badge.setAttribute("data-rendered", `${true}`);
+   
+               renderBadge(badge);
+               setComponentDidUpdate(true);
+               if (props.setBadgeDidRender) {
+                  props.setBadgeDidRender(true);
+               }
+               logDegug(`Badge rendered: ${badge}`, "info", "at useEffect in LIRenderAll, setting " + `${CALLBACK_NAME} global as part of linkedin's rendering process to trigger and coupled specific to this current badge, vanity: ${props.vanity || badge.getAttribute("data-vanity")}`);
+   
+               setExpectedResponses(expectedResponses + 1);
             }
-            logDegug(`Badge rendered: ${badge}`, "info", "at useEffect in LIRenderAll, setting " + `${CALLBACK_NAME} global as part of linkedin's rendering process to trigger and coupled specific to this current badge, vanity: ${props.vanity || badge.getAttribute("data-vanity")}`);
-
-            setExpectedResponses(expectedResponses + 1);
+   
+            logDegug(`Looping through badges, ${componentDidUpdate}, "rendered", ${rendered}, "expectedResponses", ${expectedResponses}, "responsesReceived", ${responsesReceived}`, "info", "at second useEffect in LIRenderAll");
+   
          }
-
-         logDegug(`Looping through badges, ${componentDidUpdate}, "rendered", ${rendered}, "expectedResponses", ${expectedResponses}, "responsesReceived", ${responsesReceived}`, "info", "at second useEffect in LIRenderAll");
-
       }
 
 
@@ -406,7 +418,8 @@ export const LIRenderAll = (props: Partial<LIRenderAllProps>) => {
       logDegug,
       setExpectedResponses,
       CALLBACK_NAME,
-      props
+      props,
+      uid
    ]);
    return <>
 

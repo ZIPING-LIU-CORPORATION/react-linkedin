@@ -1,4 +1,5 @@
 import React from "react";
+import { generateUidFromProps } from "src/utils";
 
 
 const LinkedInIcon = ({
@@ -10,7 +11,7 @@ const LinkedInIcon = ({
 }) => {
    return (
       <i
-      
+
          className={
             `profile-badge__header-logo-icon ` +
             `profile-badge__header-logo-icon--${theme === "light" ? "light" : "dark"
@@ -22,7 +23,7 @@ const LinkedInIcon = ({
             display: 'inline-block',
             fill: theme === 'light' ? '#0a66c2' : '#fff',
             color: theme === 'light' ? '#0a66c2' : '#fff',
-            
+
             ...style,
          }}
          aria-hidden="true"
@@ -92,7 +93,7 @@ const LinkedInBadgeSelfRender = (props: {
    className?: string;
    style?: React.CSSProperties;
    children?: React.ReactNode;
-   uid?: string;
+   generateUidWithoutApi?: boolean;
    id?: string;
    TRACKING_PARAM?: string;
    isCreatePage?: boolean;
@@ -112,6 +113,8 @@ const LinkedInBadgeSelfRender = (props: {
       profileCompanySchoolLink: string;
    } | null>(null);
 
+   const [uid, setUid] = React.useState<string | null>(null);
+
    React.useEffect(() => {
       const { locale, size, theme, type, vanity, version, isCreatePage, entity } =
          props;
@@ -120,7 +123,15 @@ const LinkedInBadgeSelfRender = (props: {
          return unicodeEscapeRegex.exec(input);
       };
       const TRACKING_PARAM = props.TRACKING_PARAM || "public-profile-badge";
-      const uid = `${Math.round(1000000 * Math.random())}`;
+
+
+      generateUidFromProps(props, props.generateUidWithoutApi).then((uidNew) => {
+         if (uid === null) {
+            setUid(uidNew);
+         }
+
+      });
+
       const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
 
       const payloadBodyParams: {
@@ -129,7 +140,7 @@ const LinkedInBadgeSelfRender = (props: {
          badgetype: encodeURIComponent(type || "VERTICAL"),
          badgetheme: encodeURIComponent(theme || "light"),
          locale: locale || "en_US",
-         uid: encodeURIComponent(uid),
+         uid: uid || "",
          version: encodeURIComponent(version || "v1"),
       };
 
@@ -169,7 +180,8 @@ const LinkedInBadgeSelfRender = (props: {
          }
       };
 
-      if (profileData === null) {
+      if (profileData === null && uid !== null) {
+         console.info("sending request", JSON.stringify(payloadBodyParams));
          xmlnew.send(JSON.stringify(payloadBodyParams));
       }
    }, [
@@ -182,6 +194,7 @@ const LinkedInBadgeSelfRender = (props: {
       props.isCreatePage,
       props.entity,
       profileData,
+      uid,
    ]);
 
    const widthSet = React.useMemo(() => {
@@ -197,26 +210,29 @@ const LinkedInBadgeSelfRender = (props: {
    }, [props.size, props.type]);
 
    return (
-      <div id={props.id} 
+      <div id={props.id}
 
-          style={props.style} className={
+         style={props.style} className={
             "profile-badge-reacted" + (props.className ? ` ${props.className}` : "")
-          }>
+         }>
          <div
             className={
                `profile-badge profile-badge--width-${widthSet} ` +
                `profile-badge--${props.theme === "light" ? "light" : "dark"}`
             }
-            lang={props.locale?.replace(/_[\w]*$/, "") || "en"}
+            lang={
+               props.locale?.replace(/_[A-Za-z]+$/, "") || "en"
+
+
+            }
             dir="ltr"
-          
          >
             <div
                className={
                   `profile-badge__header ` +
                   `profile-badge__header--${props.theme === "light" ? "light" : "dark"}`
                }
-             
+
             >
                <span className="sr-only">LinkedIn</span>
                <LinkedInIcon theme={props.theme} />

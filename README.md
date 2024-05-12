@@ -44,6 +44,16 @@ import LinkedInBadge, {LinkedInBadgeProps} from 'react-linkedinbadge';
  * `useLinkedInApiUrlPure` prop to `true` when using the `LinkedInBadge` component.
  */
 import 'react-linkedinbadge/src/LinkedInBadge.css';
+// Note: in case this stylesheet 
+// causes conflicts with your existing styles,
+// use 'react-linkedinbadge/src/style.css' instead,
+// which is a barebones stylesheet that only contains,
+// style definitions used for profile badge elements.
+// Do to the barebones nature of this stylesheet,
+// some additional styling may be needed 
+// to ensure the badge is displayed correctly.
+// FYI the demo uses the minimal stylesheet.
+
 
 const App = () => {
   const LinkedInBadgeProps: LinkedInBadgeProps = {

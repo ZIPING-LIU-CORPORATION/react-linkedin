@@ -29,6 +29,7 @@ export type LinkedInBadgeProps = {
   useLinkedInApiUrlPure: boolean;
   name: string;
   debug: boolean;
+  generateUidWithoutApi: boolean;
 };
 
 /**
@@ -46,6 +47,7 @@ export type LinkedInBadgeProps = {
  * @param {string} [name] - The name to display on the badge.
  * @param {string} [entity] - The entity type of the badge, defaults to "PROFILE".
  * @param {useLinkedInApiUrlPure} [useLinkedInApiUrlPure] - Defaults as false, if set true, when call LinkedIn's badge API, the API request won't be proxied through a Ziping.org Web Services (ZWS) web server. The proxied request is used to remove security issues that some browsers may have due to the returned content of LinkedIn's API having certain headers that the browser regards as possibly harmful (although in this case its a red herring given badge content from LinkedIn does not contain malicious content or content that may be inappropriately used to harm the user's computer).
+ * @param {boolean} [generateUidWithoutApi] - Defaults as false, if true, uid creation won't include utilizing an API call to form a more unique uid.
  * @returns {React.ReactElement} The rendered LinkedIn badge component.
  * @description This implementation uses two React components - LinkedInBadge and LIRenderAll.
  * LinkedInBadge is the parent component responsible for
@@ -59,6 +61,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const locale = props.locale || "en_US";
   const size = props.size || "medium";
   const theme = props.theme || "light";
+  const generateUidWithoutApi = props.generateUidWithoutApi || false;
   const type = props.type || "VERTICAL";
   const entity = props.entity || "PROFILE";
   const vanity = props.vanity || "☯liu";
@@ -132,6 +135,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
             badgeDidRender === false &&
             componentDidMount && (
               <LIRenderAll
+                generateUidWithoutApi={generateUidWithoutApi}
                 useLinkedInApiUrlPure={useLinkedInApiUrlPure}
                 badgeDidRender={badgeDidRender}
                 setBadgeDidRender={setBadgeDidRender}
