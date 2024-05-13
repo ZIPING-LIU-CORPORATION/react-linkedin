@@ -1269,6 +1269,8 @@ div.profile-badge-reacted {
       overflow: hidden;
       height: 100%;
       -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      -moz-scrollbars: none;
    }
 
    .overlay-center {
@@ -2408,6 +2410,7 @@ div.profile-badge-reacted {
       flex: 1;
       overflow-wrap: break-word;
       overflow-wrap: anywhere;
+      
    }
 
    .artdeco-global-alert__content a {
@@ -5429,7 +5432,7 @@ div.profile-badge-reacted {
    }
 
    .overscroll-y-contain {
-      overscroll-behavior-y: contain;
+      overscroll-behavior-y: contain;   
    }
 
    .truncate {

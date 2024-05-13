@@ -1,638 +1,640 @@
-/* style.css
+/**
+ * Simplified stylesheet used for displaying LinkedIn Profile Badges. 
+ * Used with the react-linkedinbadge component as one of the required stylsheets needed
+ * to properly display the badge. LinkedIn Profile badges rendered through LinkedIn's
+ * provided instruction by default injects a global stylesheet into the document.
+ * that has been known to conflict with existing styles used within the page. 
  * This stylesheet only contains styles specific to the Profile Badge React component.
  * and hence is less in size and less likely to conflict with other stylesheets.
  * however may not be as flexible as the global LinkedInBadge.css stylesheet.
  */
 
 div.profile-badge-reacted {
-   transition: all 0.3s ease-in-out;
-   text-rendering: geometricPrecision;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   -webkit-tap-highlight-color: transparent;
-   -webkit-touch-callout: none;
-   user-select: none;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-
-   height: 100%;
-
-   .profile-badge.profile-badge--light:hover {
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
-   }
-
-   .profile-badge--dark.profile-badge:hover {
-      box-shadow: 0 0 0 1px rgba(90, 89, 89, 0.5), 0 2px 4px rgba(90, 89, 89, 0.5);
-   }
-
-
-   div.profile-badge--width-250 {
-      width: 250px;
-   }
-
-   transition: all 0.3s ease-in-out;
-
-   .profile-badge--width-280 {
-      width: 280px;
-   }
-
-   .profile-badge--width-300 {
-      width: 300px;
-   }
-
-   .profile-badge--width-330 {
-      width: 330px;
-   }
-
-   .profile-badge--width-360 {
-      width: 360px;
-   }
-
-   .artdeco-entity-image--ghost {
-      background-color: #b3b6b9;
-   }
-
-   .artdeco-entity-image--square-4 {
-      width: 56px;
-      height: 56px;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      background-clip: content-box;
-      border: 4px solid rgba(0, 0, 0, 0);
-      border-radius: 6px;
-   }
-
-   .profile-badge--light {
-      background-color: #fff;
-      color: #000;
-   }
-
-   .profile-badge--dark {
-      background-color: #000;
-      color: #fff;
-   }
-
-   .profile-badge__cta-btn--light:visited,
-   div.profile-badge-reacted .profile-badge__cta-btn--light:visited:active,
-   div.profile-badge-reacted .profile-badge__cta-btn--light:visited:focus,
-   div.profile-badge-reacted .profile-badge__cta-btn--light:visited:hover {
-      color: #0a66c2;
-   }
-
-   .profile-badge {
-      background-color: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      -webkit-box-shadow:
-         0px -1px 1px rgba(0, 0, 0, 0.08),
-         1px 0px 1px rgba(0, 0, 0, 0.08),
-         -1px 0px 1px rgba(0, 0, 0, 0.08),
-         0px 1px 1px rgba(0, 0, 0, 0.08);
-      box-shadow:
-         0px -1px 1px rgba(0, 0, 0, 0.08),
-         1px 0px 1px rgba(0, 0, 0, 0.08),
-         -1px 0px 1px rgba(0, 0, 0, 0.08),
-         0px 1px 1px rgba(0, 0, 0, 0.08);
-      padding: 0;
-   }
-
-
-   .profile-badge--dark {
-      background-color: black;
-   }
-
-   .profile-badge--light {
-      background-color: #fff;
-   }
-
-   /** Profile name and headline and company/school info */
-   .profile-badge__content-profile-image {
-      margin: 12px 0 8px;
-      transition: all 0.3s ease-in-out;
-   }
-
-   .profile-badge__content-profile-name {
-      padding: 0 0 4px;
-      color: inherit;
-   }
-
-   .profile-badge__content-profile-name-link {
-      font-size: 1.6rem;
-      line-height: 1.5;
-      font-weight: 600;
-      color: rgba(0, 0, 0, 0.9);
-      color: inherit;
-   }
-
-   .profile-badge__content-profile-name-link--dark:focus,
-   .profile-badge__content-profile-name-link--dark:hover,
-   .profile-badge__content-profile-name-link--dark:active {
-      color: #fff;
-   }
-
-   .profile-badge__content-profile-name-link--dark:visited,
-   .profile-badge__content-profile-name-link--dark:visited:active,
-   .profile-badge__content-profile-name-link--dark:visited:focus,
-   .profile-badge__content-profile-name-link--dark:visited:hover {
-      color: #fff;
-   }
-
-   .profile-badge__content-profile-name-link--light:focus,
-   .profile-badge__content-profile-name-link--light:hover,
-   .profile-badge__content-profile-name-link--light:active {
-      color: #000;
-   }
-
-   .profile-badge__content-profile-name-link--light:visited,
-   .profile-badge__content-profile-name-link--light:visited:active,
-   .profile-badge__content-profile-name-link--light:visited:focus,
-   .profile-badge__content-profile-name-link--light:visited:hover {
-      color: #000;
-   }
-
-   .profile-badge__content-profile-headline {
-      padding: 0 0 4px;
-      font-size: 1.4rem;
-      line-height: 1.42857;
-      font-weight: 400;
-      color: rgba(0, 0, 0, 0.9);
-      color: inherit;
-   }
-
-   .profile-badge__content-profile-company-school-info {
-      padding: 0 0 4px;
-      font-size: 1.2rem;
-      line-height: 1.33333;
-      font-weight: 400;
-      color: rgba(0, 0, 0, 0.6);
-      color: inherit;
-   }
-
-   .profile-badge__content-profile-company-school-info-link {
-      font-size: 1.2rem;
-      line-height: 1.33333;
-      font-weight: 400;
-      color: rgba(0, 0, 0, 0.6);
-      color: inherit;
-   }
-
-   .profile-badge__content-profile-company-school-info-link--dark:focus,
-   .profile-badge__content-profile-company-school-info-link--dark:hover,
-   .profile-badge__content-profile-company-school-info-link--dark:active {
-      color: #fff;
-   }
-
-   .profile-badge__content-profile-company-school-info-link--dark:visited,
-   .profile-badge__content-profile-company-school-info-link--dark:visited:active,
-   .profile-badge__content-profile-company-school-info-link--dark:visited:focus,
-   .profile-badge__content-profile-company-school-info-link--dark:visited:hover {
-      color: #fff;
-   }
-
-   .profile-badge__content-profile-company-school-info-link--light:focus,
-   .profile-badge__content-profile-company-school-info-link--light:hover,
-   .profile-badge__content-profile-company-school-info-link--light:active {
-      color: #000;
-   }
-
-   .profile-badge__content-profile-company-school-info-link--light:visited,
-   .profile-badge__content-profile-company-school-info-link--light:visited:active,
-   .profile-badge__content-profile-company-school-info-link--light:visited:focus,
-   .profile-badge__content-profile-company-school-info-link--light:visited:hover {
-      color: #000;
-   }
-
-   /** Profile badge header **/
-
-   .profile-badge__header {
-      padding: 12px 16px;
-   }
-
-   .profile-badge__header--light {
-      background-color: #e9e5df;
-   }
-
-   .profile-badge__header--dark {
-      background-color: #38434f;
-   }
-
-   .profile-badge__header-logo-icon {
-      width: 84px;
-      height: 21px;
-      display: inline-block;
-   }
-
-   .profile-badge__header-logo-icon--light {
-      color: #0a66c2;
-   }
-
-   .profile-badge__header-logo-icon--dark {
-      color: #fff;
-   }
-
-
-   /** Profile badge content **/
-   .profile-badge__content {
-      padding: 0 16px;
-   }
-
-   .profile-badge__content-profile-image {
-      margin: 12px 0 8px;
-   }
-
-   .profile-badge__content-profile-name {
-      padding: 0 0 4px;
-      color: inherit;
-   }
-
-
-
-
-   h3,
-   .large-text {
-      font-size: 2.4rem;
-      line-height: 1.4;
-      font-weight: 400;
-
-   }
-
-   .profile-badge__content-profile-name {
-      padding: 0 0 4px;
-   }
-
-   .profile-badge__content-profile-company-school-info {
-      padding: 0 0 4px;
-      font-size: 1.2rem;
-      line-height: 1.33333;
-      font-weight: 400;
-      color: inherit;
-   }
-
-   /** view profile button */
-   .profile-badge__cta-btn {
-      margin: 4px 16px 12px;
-      color: inherit;
-   }
-
-   .profile-badge__cta-btn--light {
-      background-color: rgba(0, 0, 0, 0);
-      border: 0;
-      border-radius: 2px;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      color: #0073b1;
-      cursor: pointer;
-      display: inline-block;
-      font-size: 1.6rem;
-      font-weight: 600;
-      font-family: inherit;
-      height: 32px;
-      line-height: 32px;
-      overflow: hidden;
-      outline-width: 2px;
-      padding: 0 16px;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      -webkit-transition-duration: 167ms;
-      transition-duration: 167ms;
-      -webkit-transition-property:
-         background-color,
-         color,
-         -webkit-box-shadow;
-      transition-property:
-         background-color,
-         color,
-         -webkit-box-shadow;
-      transition-property: background-color, box-shadow, color;
-      transition-property:
-         background-color,
-         box-shadow,
-         color,
-         -webkit-box-shadow;
-      -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      vertical-align: middle;
-      z-index: 0;
-      -webkit-box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      border-radius: 24px;
-      -webkit-box-shadow: inset 0 0 0 1px #0a66c2;
-      box-shadow: inset 0 0 0 1px #0a66c2;
-      color: #0a66c2;
-   }
-
-   @media only screen and (-ms-high-contrast: active) {
-      .profile-badge__cta-btn--light {
-         border: 1px solid currentColor;
-         line-height: 30px;
-      }
-   }
-
-   .profile-badge__cta-btn--light li-icon,
-   .profile-badge__cta-btn--light i,
-   .profile-badge__cta-btn--light li {
-      top: 2px;
-      -webkit-box-sizing: content-box;
-      box-sizing: content-box;
-      height: 16px;
-      left: 0;
-      margin: -12px 0 0 -6px;
-      padding: 0 6px 0 0;
-      position: relative;
-      width: 16px;
-   }
-
-   .profile-badge__cta-btn--light li-icon>svg,
-   .profile-badge__cta-btn--light li>svg,
-   .profile-badge__cta-btn--light i>svg {
-      -webkit-transition: -webkit-transform 167ms;
-      transition: -webkit-transform 167ms;
-      transition: transform 167ms;
-      transition:
-         transform 167ms,
-         -webkit-transform 167ms;
-      -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      display: inline-block;
-      vertical-align: top;
-   }
-
-   .edge .profile-badge__cta-btn--light,
-   .ie .profile-badge__cta-btn--light {
-      border-radius: 0;
-   }
-
-   .profile-badge__cta-btn--light:not(:disabled)[data-is-animating-click="true"],
-   .profile-badge__cta-btn--light:hover:not( :disabled)[data-is-animating-click="true"] {
-      -webkit-box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px #004b7c;
-      box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px #004b7c;
-   }
-
-   .profile-badge__cta-btn--light:hover:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--light.hover-not-disabled {
-      background-color: rgba(152, 216, 244, 0.25);
-      color: #006097;
-      -webkit-box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px #006097,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px #006097,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-   }
-
-   .profile-badge__cta-btn--light:focus,
-   .profile-badge__cta-btn--light.focus {
-      background-color: rgba(152, 216, 244, 0.25);
-      color: #006097;
-      -webkit-box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px #006097,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      box-shadow:
-         inset 0 0 0 1px #0073b1,
-         inset 0 0 0 2px #006097,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-   }
-
-   .profile-badge__cta-btn--light:active:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--light.active-not-disabled {
-      background-color: rgba(152, 216, 244, 0.45);
-      color: #004b7c;
-   }
-
-   .profile-badge__cta-btn--light:disabled,
-   .profile-badge__cta-btn--light.disabled {
-      color: rgba(0, 115, 177, 0.35);
-      -webkit-box-shadow: inset 0 0 0 1px rgba(0, 115, 177, 0.35);
-      box-shadow: inset 0 0 0 1px rgba(0, 115, 177, 0.35);
-      cursor: not-allowed;
-   }
-
-   .profile-badge__cta-btn--light:focus,
-   .profile-badge__cta-btn--light.focus,
-   .profile-badge__cta-btn--light:hover:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--light.hover-not-disabled {
-      -webkit-box-shadow: inset 0 0 0 2px #0a66c2;
-      box-shadow: inset 0 0 0 2px #0a66c2;
-   }
-
-   .profile-badge__cta-btn--light:active,
-   .profile-badge__cta-btn--light.active,
-   .profile-badge__cta-btn--light:active:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--light.active-not-disabled {
-      -webkit-box-shadow: inset 0 0 0 1px #004182;
-      box-shadow: inset 0 0 0 1px #004182;
-   }
-
-   .profile-badge__cta-btn--light:focus,
-   .profile-badge__cta-btn--light.focus,
-   .profile-badge__cta-btn--light:hover:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--light.hover-not-disabled {
-      background-color: rgba(112, 181, 249, 0.15);
-      color: #0a66c2;
-   }
-
-   .profile-badge__cta-btn--light:active,
-   .profile-badge__cta-btn--light.active,
-   .profile-badge__cta-btn--light:active:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--light.active-not-disabled {
-      background-color: rgba(112, 181, 249, 0.3);
-      color: #004182;
-   }
-
-   .profile-badge__cta-btn--light:visited,
-   .profile-badge__cta-btn--light:visited:active,
-   .profile-badge__cta-btn--light:visited:focus,
-   .profile-badge__cta-btn--light:visited:hover {
-      color: #0a66c2;
-   }
-
-   .profile-badge__cta-btn--light:hover {
-      color: #0a66c2;
-      text-decoration: none !important;
-   }
-
-   .profile-badge__cta-btn--dark {
-      background-color: rgba(0, 0, 0, 0);
-      border: 0;
-      border-radius: 2px;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      color: #fff;
-      cursor: pointer;
-      display: inline-block;
-      font-size: 1.6rem;
-      font-weight: 600;
-      font-family: inherit;
-      height: 32px;
-      line-height: 32px;
-      overflow: hidden;
-      outline-width: 2px;
-      padding: 0 16px;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      -webkit-transition-duration: 167ms;
-      transition-duration: 167ms;
-      -webkit-transition-property:
-         background-color,
-         color,
-         -webkit-box-shadow;
-      transition-property:
-         background-color,
-         color,
-         -webkit-box-shadow;
-      transition-property: background-color, box-shadow, color;
-      transition-property:
-         background-color,
-         box-shadow,
-         color,
-         -webkit-box-shadow;
-      -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      vertical-align: middle;
-      z-index: 0;
-      -webkit-box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      border-radius: 24px;
-      -webkit-box-shadow: inset 0 0 0 1px #fff;
-      box-shadow: inset 0 0 0 1px #fff;
-      box-shadow: inset 0 0 0 1px #fff;
-   }
-
-   @media only screen and (-ms-high-contrast: active) {
-      .profile-badge__cta-btn--dark {
-         border: 1px solid currentColor;
-         line-height: 30px;
-      }
-   }
-
-   html.ie .profile-badge__cta-btn--dark:focus,
-   html.edge .profile-badge__cta-btn--dark:focus {
-      outline: 1px dashed #7f7f7f;
-   }
-
-   .profile-badge__cta-btn--dark li-icon,
-   .profile-badge__cta-btn--dark i,
-   .profile-badge__cta-btn--dark li {
-      top: 2px;
-      -webkit-box-sizing: content-box;
-      box-sizing: content-box;
-      height: 16px;
-      left: 0;
-      margin: -12px 0 0 -6px;
-      padding: 0 6px 0 0;
-      position: relative;
-      width: 16px;
-   }
-
-   .profile-badge__cta-btn--dark li-icon>svg,
-   .profile-badge__cta-btn--dark li>svg,
-   .profile-badge__cta-btn--dark i>svg {
-      -webkit-transition: -webkit-transform 167ms;
-      transition: -webkit-transform 167ms;
-      transition: transform 167ms;
-      transition:
-         transform 167ms,
-         -webkit-transform 167ms;
-      -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-      display: inline-block;
-      vertical-align: top;
-   }
-
-   .edge .profile-badge__cta-btn--dark,
-   .ie .profile-badge__cta-btn--dark {
-      border-radius: 0;
-   }
-
-   .profile-badge__cta-btn--dark:not(:disabled)[data-is-animating-click="true"],
-   .profile-badge__cta-btn--dark:hover:not( :disabled)[data-is-animating-click="true"] {
-      -webkit-box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px #fff;
-      box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px rgba(0, 0, 0, 0),
-         inset 0 0 0 1px #fff;
-   }
-
-   .profile-badge__cta-btn--dark:hover:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--dark.hover-not-disabled {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      -webkit-box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px #fff,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px #fff,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-   }
-
-   .profile-badge__cta-btn--dark:focus,
-   .profile-badge__cta-btn--dark.focus {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      -webkit-box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px #fff,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-      box-shadow:
-         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-         inset 0 0 0 2px #fff,
-         inset 0 0 0 1px rgba(0, 0, 0, 0);
-   }
-
-   .profile-badge__cta-btn--dark:active:not(:disabled):not(.disabled),
-   .profile-badge__cta-btn--dark.active-not-disabled {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #fff;
-   }
-
-   .profile-badge__cta-btn--dark:disabled,
-   .profile-badge__cta-btn--dark.disabled {
-      color: rgba(255, 255, 255, 0.35);
-      -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-      cursor: not-allowed;
-   }
-
-   .profile-badge__cta-btn--dark:visited,
-   .profile-badge__cta-btn--dark:visited:active,
-   .profile-badge__cta-btn--dark:visited:focus,
-   .profile-badge__cta-btn--dark:visited:hover {
-      color: #fff;
-   }
-
-   .profile-badge__cta-btn--dark:hover {
-      color: #fff;
-      text-decoration: none !important;
-   }
-
-
+  transition: all 0.3s ease-in-out;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 100%;
+  .profile-badge.profile-badge--light:hover {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .profile-badge--dark.profile-badge:hover {
+    box-shadow:
+      0 0 0 1px rgba(90, 89, 89, 0.5),
+      0 2px 4px rgba(90, 89, 89, 0.5);
+  }
+
+  div.profile-badge--width-250 {
+    width: 250px;
+  }
+
+  transition: all 0.3s ease-in-out;
+
+  .profile-badge--width-280 {
+    width: 280px;
+  }
+
+  .profile-badge--width-300 {
+    width: 300px;
+  }
+
+  .profile-badge--width-330 {
+    width: 330px;
+  }
+
+  .profile-badge--width-360 {
+    width: 360px;
+  }
+
+  .artdeco-entity-image--ghost {
+    background-color: #b3b6b9;
+  }
+
+  .artdeco-entity-image--square-4 {
+    width: 56px;
+    height: 56px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-clip: content-box;
+    border: 4px solid rgba(0, 0, 0, 0);
+    border-radius: 6px;
+  }
+
+  .profile-badge--light {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .profile-badge--dark {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .profile-badge__cta-btn--light:visited,
+  div.profile-badge-reacted .profile-badge__cta-btn--light:visited:active,
+  div.profile-badge-reacted .profile-badge__cta-btn--light:visited:focus,
+  div.profile-badge-reacted .profile-badge__cta-btn--light:visited:hover {
+    color: #0a66c2;
+  }
+
+  .profile-badge {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-box-shadow:
+      0px -1px 1px rgba(0, 0, 0, 0.08),
+      1px 0px 1px rgba(0, 0, 0, 0.08),
+      -1px 0px 1px rgba(0, 0, 0, 0.08),
+      0px 1px 1px rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0px -1px 1px rgba(0, 0, 0, 0.08),
+      1px 0px 1px rgba(0, 0, 0, 0.08),
+      -1px 0px 1px rgba(0, 0, 0, 0.08),
+      0px 1px 1px rgba(0, 0, 0, 0.08);
+    padding: 0;
+  }
+
+  .profile-badge--dark {
+    background-color: black;
+  }
+
+  .profile-badge--light {
+    background-color: #fff;
+  }
+
+  /** Profile name and headline and company/school info */
+  .profile-badge__content-profile-image {
+    margin: 12px 0 8px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .profile-badge__content-profile-name {
+    padding: 0 0 4px;
+    color: inherit;
+  }
+
+  .profile-badge__content-profile-name-link {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.9);
+    color: inherit;
+  }
+
+  .profile-badge__content-profile-name-link--dark:focus,
+  .profile-badge__content-profile-name-link--dark:hover,
+  .profile-badge__content-profile-name-link--dark:active {
+    color: #fff;
+  }
+
+  .profile-badge__content-profile-name-link--dark:visited,
+  .profile-badge__content-profile-name-link--dark:visited:active,
+  .profile-badge__content-profile-name-link--dark:visited:focus,
+  .profile-badge__content-profile-name-link--dark:visited:hover {
+    color: #fff;
+  }
+
+  .profile-badge__content-profile-name-link--light:focus,
+  .profile-badge__content-profile-name-link--light:hover,
+  .profile-badge__content-profile-name-link--light:active {
+    color: #000;
+  }
+
+  .profile-badge__content-profile-name-link--light:visited,
+  .profile-badge__content-profile-name-link--light:visited:active,
+  .profile-badge__content-profile-name-link--light:visited:focus,
+  .profile-badge__content-profile-name-link--light:visited:hover {
+    color: #000;
+  }
+
+  .profile-badge__content-profile-headline {
+    padding: 0 0 4px;
+    font-size: 1.4rem;
+    line-height: 1.42857;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.9);
+    color: inherit;
+  }
+
+  .profile-badge__content-profile-company-school-info {
+    padding: 0 0 4px;
+    font-size: 1.2rem;
+    line-height: 1.33333;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+    color: inherit;
+  }
+
+  .profile-badge__content-profile-company-school-info-link {
+    font-size: 1.2rem;
+    line-height: 1.33333;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+    color: inherit;
+  }
+
+  .profile-badge__content-profile-company-school-info-link--dark:focus,
+  .profile-badge__content-profile-company-school-info-link--dark:hover,
+  .profile-badge__content-profile-company-school-info-link--dark:active {
+    color: #fff;
+  }
+
+  .profile-badge__content-profile-company-school-info-link--dark:visited,
+  .profile-badge__content-profile-company-school-info-link--dark:visited:active,
+  .profile-badge__content-profile-company-school-info-link--dark:visited:focus,
+  .profile-badge__content-profile-company-school-info-link--dark:visited:hover {
+    color: #fff;
+  }
+
+  .profile-badge__content-profile-company-school-info-link--light:focus,
+  .profile-badge__content-profile-company-school-info-link--light:hover,
+  .profile-badge__content-profile-company-school-info-link--light:active {
+    color: #000;
+  }
+
+  .profile-badge__content-profile-company-school-info-link--light:visited,
+  .profile-badge__content-profile-company-school-info-link--light:visited:active,
+  .profile-badge__content-profile-company-school-info-link--light:visited:focus,
+  .profile-badge__content-profile-company-school-info-link--light:visited:hover {
+    color: #000;
+  }
+
+  /** Profile badge header **/
+
+  .profile-badge__header {
+    padding: 12px 16px;
+  }
+
+  .profile-badge__header--light {
+    background-color: #e9e5df;
+  }
+
+  .profile-badge__header--dark {
+    background-color: #38434f;
+  }
+
+  .profile-badge__header-logo-icon {
+    width: 84px;
+    height: 21px;
+    display: inline-block;
+  }
+
+  .profile-badge__header-logo-icon--light {
+    color: #0a66c2;
+  }
+
+  .profile-badge__header-logo-icon--dark {
+    color: #fff;
+  }
+
+  /** Profile badge content **/
+  .profile-badge__content {
+    padding: 0 16px;
+  }
+
+  .profile-badge__content-profile-image {
+    margin: 12px 0 8px;
+  }
+
+  .profile-badge__content-profile-name {
+    padding: 0 0 4px;
+    color: inherit;
+  }
+
+  h3,
+  .large-text {
+    font-size: 2.4rem;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  .profile-badge__content-profile-name {
+    padding: 0 0 4px;
+  }
+
+  .profile-badge__content-profile-company-school-info {
+    padding: 0 0 4px;
+    font-size: 1.2rem;
+    line-height: 1.33333;
+    font-weight: 400;
+    color: inherit;
+  }
+
+  /** view profile button */
+  .profile-badge__cta-btn {
+    margin: 4px 16px 12px;
+    color: inherit;
+  }
+
+  .profile-badge__cta-btn--light {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #0073b1;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: inherit;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+    outline-width: 2px;
+    padding: 0 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition-duration: 167ms;
+    transition-duration: 167ms;
+    -webkit-transition-property:
+      background-color,
+      color,
+      -webkit-box-shadow;
+    transition-property:
+      background-color,
+      color,
+      -webkit-box-shadow;
+    transition-property: background-color, box-shadow, color;
+    transition-property:
+      background-color,
+      box-shadow,
+      color,
+      -webkit-box-shadow;
+    -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    vertical-align: middle;
+    z-index: 0;
+    -webkit-box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    border-radius: 24px;
+    -webkit-box-shadow: inset 0 0 0 1px #0a66c2;
+    box-shadow: inset 0 0 0 1px #0a66c2;
+    color: #0a66c2;
+  }
+
+  @media only screen and (-ms-high-contrast: active) {
+    .profile-badge__cta-btn--light {
+      border: 1px solid currentColor;
+      line-height: 30px;
+    }
+  }
+
+  .profile-badge__cta-btn--light li-icon,
+  .profile-badge__cta-btn--light i,
+  .profile-badge__cta-btn--light li {
+    top: 2px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 16px;
+    left: 0;
+    margin: -12px 0 0 -6px;
+    padding: 0 6px 0 0;
+    position: relative;
+    width: 16px;
+  }
+
+  .profile-badge__cta-btn--light li-icon > svg,
+  .profile-badge__cta-btn--light li > svg,
+  .profile-badge__cta-btn--light i > svg {
+    -webkit-transition: -webkit-transform 167ms;
+    transition: -webkit-transform 167ms;
+    transition: transform 167ms;
+    transition:
+      transform 167ms,
+      -webkit-transform 167ms;
+    -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .edge .profile-badge__cta-btn--light,
+  .ie .profile-badge__cta-btn--light {
+    border-radius: 0;
+  }
+
+  .profile-badge__cta-btn--light:not(:disabled)[data-is-animating-click="true"],
+  .profile-badge__cta-btn--light:hover:not(
+      :disabled
+    )[data-is-animating-click="true"] {
+    -webkit-box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px #004b7c;
+    box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px #004b7c;
+  }
+
+  .profile-badge__cta-btn--light:hover:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--light.hover-not-disabled {
+    background-color: rgba(152, 216, 244, 0.25);
+    color: #006097;
+    -webkit-box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px #006097,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px #006097,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+  }
+
+  .profile-badge__cta-btn--light:focus,
+  .profile-badge__cta-btn--light.focus {
+    background-color: rgba(152, 216, 244, 0.25);
+    color: #006097;
+    -webkit-box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px #006097,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow:
+      inset 0 0 0 1px #0073b1,
+      inset 0 0 0 2px #006097,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+  }
+
+  .profile-badge__cta-btn--light:active:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--light.active-not-disabled {
+    background-color: rgba(152, 216, 244, 0.45);
+    color: #004b7c;
+  }
+
+  .profile-badge__cta-btn--light:disabled,
+  .profile-badge__cta-btn--light.disabled {
+    color: rgba(0, 115, 177, 0.35);
+    -webkit-box-shadow: inset 0 0 0 1px rgba(0, 115, 177, 0.35);
+    box-shadow: inset 0 0 0 1px rgba(0, 115, 177, 0.35);
+    cursor: not-allowed;
+  }
+
+  .profile-badge__cta-btn--light:focus,
+  .profile-badge__cta-btn--light.focus,
+  .profile-badge__cta-btn--light:hover:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--light.hover-not-disabled {
+    -webkit-box-shadow: inset 0 0 0 2px #0a66c2;
+    box-shadow: inset 0 0 0 2px #0a66c2;
+  }
+
+  .profile-badge__cta-btn--light:active,
+  .profile-badge__cta-btn--light.active,
+  .profile-badge__cta-btn--light:active:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--light.active-not-disabled {
+    -webkit-box-shadow: inset 0 0 0 1px #004182;
+    box-shadow: inset 0 0 0 1px #004182;
+  }
+
+  .profile-badge__cta-btn--light:focus,
+  .profile-badge__cta-btn--light.focus,
+  .profile-badge__cta-btn--light:hover:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--light.hover-not-disabled {
+    background-color: rgba(112, 181, 249, 0.15);
+    color: #0a66c2;
+  }
+
+  .profile-badge__cta-btn--light:active,
+  .profile-badge__cta-btn--light.active,
+  .profile-badge__cta-btn--light:active:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--light.active-not-disabled {
+    background-color: rgba(112, 181, 249, 0.3);
+    color: #004182;
+  }
+
+  .profile-badge__cta-btn--light:visited,
+  .profile-badge__cta-btn--light:visited:active,
+  .profile-badge__cta-btn--light:visited:focus,
+  .profile-badge__cta-btn--light:visited:hover {
+    color: #0a66c2;
+  }
+
+  .profile-badge__cta-btn--light:hover {
+    color: #0a66c2;
+    text-decoration: none !important;
+  }
+
+  .profile-badge__cta-btn--dark {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-family: inherit;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+    outline-width: 2px;
+    padding: 0 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition-duration: 167ms;
+    transition-duration: 167ms;
+    -webkit-transition-property:
+      background-color,
+      color,
+      -webkit-box-shadow;
+    transition-property:
+      background-color,
+      color,
+      -webkit-box-shadow;
+    transition-property: background-color, box-shadow, color;
+    transition-property:
+      background-color,
+      box-shadow,
+      color,
+      -webkit-box-shadow;
+    -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    vertical-align: middle;
+    z-index: 0;
+    -webkit-box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    border-radius: 24px;
+    -webkit-box-shadow: inset 0 0 0 1px #fff;
+    box-shadow: inset 0 0 0 1px #fff;
+    box-shadow: inset 0 0 0 1px #fff;
+  }
+
+  @media only screen and (-ms-high-contrast: active) {
+    .profile-badge__cta-btn--dark {
+      border: 1px solid currentColor;
+      line-height: 30px;
+    }
+  }
+
+  html.ie .profile-badge__cta-btn--dark:focus,
+  html.edge .profile-badge__cta-btn--dark:focus {
+    outline: 1px dashed #7f7f7f;
+  }
+
+  .profile-badge__cta-btn--dark li-icon,
+  .profile-badge__cta-btn--dark i,
+  .profile-badge__cta-btn--dark li {
+    top: 2px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 16px;
+    left: 0;
+    margin: -12px 0 0 -6px;
+    padding: 0 6px 0 0;
+    position: relative;
+    width: 16px;
+  }
+
+  .profile-badge__cta-btn--dark li-icon > svg,
+  .profile-badge__cta-btn--dark li > svg,
+  .profile-badge__cta-btn--dark i > svg {
+    -webkit-transition: -webkit-transform 167ms;
+    transition: -webkit-transform 167ms;
+    transition: transform 167ms;
+    transition:
+      transform 167ms,
+      -webkit-transform 167ms;
+    -webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .edge .profile-badge__cta-btn--dark,
+  .ie .profile-badge__cta-btn--dark {
+    border-radius: 0;
+  }
+
+  .profile-badge__cta-btn--dark:not(:disabled)[data-is-animating-click="true"],
+  .profile-badge__cta-btn--dark:hover:not(
+      :disabled
+    )[data-is-animating-click="true"] {
+    -webkit-box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px #fff;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px rgba(0, 0, 0, 0),
+      inset 0 0 0 1px #fff;
+  }
+
+  .profile-badge__cta-btn--dark:hover:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--dark.hover-not-disabled {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    -webkit-box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px #fff,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px #fff,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+  }
+
+  .profile-badge__cta-btn--dark:focus,
+  .profile-badge__cta-btn--dark.focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    -webkit-box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px #fff,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      inset 0 0 0 2px #fff,
+      inset 0 0 0 1px rgba(0, 0, 0, 0);
+  }
+
+  .profile-badge__cta-btn--dark:active:not(:disabled):not(.disabled),
+  .profile-badge__cta-btn--dark.active-not-disabled {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .profile-badge__cta-btn--dark:disabled,
+  .profile-badge__cta-btn--dark.disabled {
+    color: rgba(255, 255, 255, 0.35);
+    -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    cursor: not-allowed;
+  }
+
+  .profile-badge__cta-btn--dark:visited,
+  .profile-badge__cta-btn--dark:visited:active,
+  .profile-badge__cta-btn--dark:visited:focus,
+  .profile-badge__cta-btn--dark:visited:hover {
+    color: #fff;
+  }
+
+  .profile-badge__cta-btn--dark:hover {
+    color: #fff;
+    text-decoration: none !important;
+  }
 }
