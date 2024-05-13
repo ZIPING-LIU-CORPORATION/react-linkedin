@@ -181,6 +181,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
           version={version}
           className={props.className}
           generateUidWithoutApi={generateUidWithoutApi}
+          hideViewProfileButton={props.hideViewProfileButton}
           id={props.id}
           debug={props.debug}
           name={name}

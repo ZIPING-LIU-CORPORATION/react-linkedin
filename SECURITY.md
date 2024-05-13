@@ -1,10 +1,15 @@
 # Security Policy
 
-## Supported Versions
+## Supported Versions and their notable differences in Rendering Profile Badges
 
-### Utilizling Linkedin's methods instead with this Com ponent
+Version 4.0 or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. If you want to display a LinkedIn profile badge, I suggest using version 4 or an earlier version of the component. These versions are stable and reliable for rendering profile badges, especially if you have some requirements in only rendering profile badges via the official form provided by LinkedIn.
 
-Version 4.0 or lower utilizes LinkedIn's [script](https://platform.linkedin.com/badges/js/profile.js) to render the badge. I recommend using version 4 or lower in case you require rendering via LinkedIn's method by any means. Version 4 by the means is a version that has issues or functionality flaws, and is a stable legacy version of the component. Version 5.0 given that it fully integrates rendering within the component and thus utilizes full adherence toward React's lifecycle methods and state management system, provides even fuller abilities in allowing the badge to properly render and animate utilizing any other React components or libraries within your project.
+**However**, version 5.0 no longers uses the `profile.js` script and instead carries out the the same tasks using React's lifecycle methods and state management system, removing the need in adding a script tag and relying on an outside script to inject badge content.
+
+Vrsion 5.12.* goes a step even further and no longer utilizes a server-side rendering method by fully rendering the badge through React on the client side. These gradual changes simply add further flexibility and control in how profile badges are rendered, allowing you to properly render and animate badges using any other React components or libraries within your project. 
+
+Again, Please note that using version 4 or earlier versions does not mean that they are outdated, as they are still reliable and stable options for rendering profile badges.
+
 
 | Version | Supported          | Renders using profile.js | Renders through React hooks like profile.js | Renders within itself fully |
 | ------- | ------------------ | ------------------------ | ------------------------------------------- | --------------------------- |
