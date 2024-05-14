@@ -118,28 +118,39 @@ export default function LinkedInBadgeSelfRender({
         const xmlnew = new XMLHttpRequest();
         const baseUrl = 'https://ziping.liu.academy/api/v2/linkedin/profile/';
 
-        xmlnew.open('POST', baseUrl, true);
-        xmlnew.setRequestHeader('Content-Type', 'application/json');
-        xmlnew.onreadystatechange = function () {
-          if (xmlnew.readyState === 4 && xmlnew.status === 200) {
-            const data = JSON.parse(xmlnew.responseText);
-            const headlineText = data.profileHeadline;
-            const captured = captureUnicodeEscapes(headlineText);
-
-            if (captured) {
-              const capturedPart = captured[1];
-              const capturedPartJson = JSON.parse(`"${capturedPart}"`);
-              data.profileHeadline = headlineText.replace(capturedPart, capturedPartJson);
-            }
-            console.info('profile data', data);
-            setProfileData(data);
-            localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`, JSON.stringify(data));
-            localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`, new Date().getTime().toString());
-
-          }
-        };
-
         if (profileData === null && uidNew !== null) {
+          xmlnew.open('POST', baseUrl, true);
+          xmlnew.setRequestHeader('Content-Type', 'application/json');
+          xmlnew.onreadystatechange = function () {
+            if (xmlnew.readyState === 4 && xmlnew.status === 200) {
+              const data = JSON.parse(xmlnew.responseText);
+              const headlineText = data.profileHeadline;
+
+              // Handle unicode escape characters so that special unicode characters will render with 
+              // appropriate characters in the profile headline, else the unicode escape characters will be displayed.
+              const captured = captureUnicodeEscapes(headlineText);
+              if (captured) {
+                const capturedPart = captured[1];
+                // JSON parse the captured unicode escape characters to get the actual unicode characters
+                // which allows these characterse to properly render in the profile headline in the 
+                // LinkedInBadge component.
+                const capturedPartJson = JSON.parse(`"${capturedPart}"`);
+                data.profileHeadline = headlineText.replace(capturedPart, capturedPartJson);
+              }
+              if (debug) {
+                console.info(`Retrieved profile badge info for vanity ${vanity
+                  } via API and saving to local storage: `, `'cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}'`, 'profile data', `${Object.keys(data).toString()}`);
+              }
+
+              setProfileData(data);
+              localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`, JSON.stringify(data));
+              localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`, new Date().getTime().toString());
+            }
+          };
+          if (debug) {
+            console.info(`Fetching profile badge info now for vanity ${vanity
+              } via API: `, `'${baseUrl}'`, 'payloadBodyParams', `${Object.keys(payloadBodyParams).toString()}`);
+          }
           xmlnew.send(JSON.stringify(payloadBodyParams));
         }
       });
@@ -155,22 +166,22 @@ export default function LinkedInBadgeSelfRender({
     const lastUpdatedTime = parseInt(lastUpdated || '0', 10);
     const timeDiff = now - lastUpdatedTime;
     const timeDiffInHours = timeDiff / (1000 * 60 * 60);
-    
+
     const isCacheDataMissingRequiredFieldsOrCorrupt = cachedProfileData && (!cachedProfileData.includes('profileName'));
-    const isOutDatedOrNotThere =  isCacheDataMissingRequiredFieldsOrCorrupt ||(!cachedProfileData || !lastUpdated || timeDiffInHours > 48);
-    if(debug){
+    const isOutDatedOrNotThere = isCacheDataMissingRequiredFieldsOrCorrupt || (!cachedProfileData || !lastUpdated || timeDiffInHours > 48);
+    if (debug) {
       console.info('cachedProfileData', cachedProfileData, "lastUpdated", lastUpdated, "isOutDatedOrNotThere", isOutDatedOrNotThere, "timeDiffInHours", timeDiffInHours);
     }
     if (
       noCache ||
       isOutDatedOrNotThere
     ) {
-      if(debug){
+      if (debug) {
         console.info('Fetching data from API', "cachProfileData", cachedProfileData, "lastUpdated", lastUpdated, "cachedProfileData", cachedProfileData);
       }
       fetchData();
     } else {
-      if(debug){
+      if (debug) {
         console.info('Fetching data from cache linkedinbadge', "cachProfileData", cachedProfileData, "lastUpdated", lastUpdated);
       }
       setProfileData(JSON.parse(cachedProfileData));
@@ -347,8 +358,8 @@ export default function LinkedInBadgeSelfRender({
             target="_blank"
             rel="noopener noreferrer"
             href={`${vanity
-                ? `https://www.linkedin.com/in/${vanity}?trk=profile-badge`
-                : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
+              ? `https://www.linkedin.com/in/${vanity}?trk=profile-badge`
+              : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
               }`}
           >
             {name}
