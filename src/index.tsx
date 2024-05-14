@@ -20,6 +20,8 @@ import LinkedInBadgeSelfRender from "./LinkedInBadgeSelfRender";
  * the projects SECURITY.md file for details on which versions of the `react-linkedinbadge` best supports prior rendering methods.
  * @param {boolean} [generateUidWithoutApi] - Defaults as `false`, if `true`, uid creation won't include utilizing an API call to form a more unique uid.
  * @param {ReactNode} [children] - The children to render within the badge container, only supported when useLinkedInApiUrlPure is set to `false`, hence when rendering the badge within the component itself and without the LinkedIn's badge rendering API's callback injection with iframe method.
+ * @param {boolean} [noCache] - Default is `false`, set to `true` to disable the caching of profile badge data in the browser's local storage. Caching is only done when rendering through the 
+ * component's self-rendering method and not through the LinkedIn's badge rendering API's callback injection with iframe method.
  * @example
  * ```tsx
  * <LinkedInBadge
@@ -45,6 +47,7 @@ export type LinkedInBadgeProps = {
   className: string;
   style: React.CSSProperties;
   children: React.ReactNode;
+  noCache: boolean;
   id: string;
   script_src: string;
   name: string;
@@ -89,6 +92,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const useLinkedInApiUrlPure = props.useLinkedInApiUrlPure || false;
   const vanityEncoded = encodeURIComponent(vanity);
   const name = props.name || "";
+  const noCache = props.noCache || false;
   const url = `https://www.linkedin.com/in/${vanityEncoded}?trk=profile-badge`;
   const refForDivBadge = React.useRef<HTMLDivElement>(null);
   const [componentDidMount, setComponentDidMount] =
@@ -178,6 +182,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
           theme={theme}
           type={type}
           vanity={vanity}
+          noCache={noCache}
           version={version}
           className={props.className}
           generateUidWithoutApi={generateUidWithoutApi}

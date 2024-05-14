@@ -19,6 +19,7 @@ export default function LinkedInBadgeSelfRender({
   TRACKING_PARAM = "public-profile-badge",
   isCreatePage = false,
   name = "",
+  noCache = false,
   debug = false,
 }: {
   locale?: string;
@@ -37,6 +38,7 @@ export default function LinkedInBadgeSelfRender({
   TRACKING_PARAM?: string;
   isCreatePage?: boolean;
   name?: string;
+  noCache?: boolean;
   debug?: boolean;
 }) {
   const [profileData, setProfileData] = React.useState<{
@@ -60,81 +62,120 @@ export default function LinkedInBadgeSelfRender({
       return unicodeEscapeRegex.exec(input);
     };
 
-    generateUidFromProps(
-      {
+
+
+    const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
+    const fetchData = () => {
+
+
+      generateUidFromProps({
         locale,
         size,
         theme,
         type,
         vanity,
-        className,
-        id,
-        entity,
-        TRACKING_PARAM,
         version,
-        isCreatePage,
-        hideViewProfileButton,
-        name,
+        entity,
         generateUidWithoutApi,
-      },
-      generateUidWithoutApi,
-    ).then((uidNew) => {
-      if (uid === null) {
-        setUid(uidNew);
-      }
-    });
+        hideViewProfileButton,
+        TRACKING_PARAM,
+        isCreatePage,
+      }).then((uidNew) => {
 
-    const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
 
-    const payloadBodyParams: {
-      [key: string]: string | string[];
-    } = {
-      badgetype: encodeURIComponent(type || "VERTICAL"),
-      badgetheme: encodeURIComponent(theme || "light"),
-      locale: locale || "en_US",
-      uid: uid || "",
-      version: encodeURIComponent(version || "v1"),
-    };
-
-    if (version === "v2") {
-      payloadBodyParams.badgesize = size || "medium";
-      payloadBodyParams.entity = entity || "PROFILE";
-    } else {
-      payloadBodyParams.maxsize = encodeURIComponent(size || "medium");
-      payloadBodyParams.trk = TRACKING_PARAM;
-      payloadBodyParams.vanityname = encodeURIComponent(vanity || "☯liu");
-    }
-
-    if (isCreatePage) {
-      payloadBodyParams.fromCreate = "true";
-    }
-
-    const xmlnew = new XMLHttpRequest();
-
-    xmlnew.open("POST", baseUrl, true);
-    xmlnew.setRequestHeader("Content-Type", "application/json");
-    xmlnew.onreadystatechange = function () {
-      if (xmlnew.readyState === 4 && xmlnew.status === 200) {
-        const data = JSON.parse(xmlnew.responseText);
-        const headlineText = data.profileHeadline;
-        const captured = captureUnicodeEscapes(headlineText);
-
-        if (captured) {
-          const capturedPart = captured[1];
-          const capturedPartJson = JSON.parse(`"${capturedPart}"`);
-          data.profileHeadline = headlineText.replace(
-            capturedPart,
-            capturedPartJson,
-          );
+        if (uidNew !== uid && uidNew !== null) {
+          setUid(uidNew);
         }
 
-        setProfileData(data);
-      }
-    };
 
-    if (profileData === null && uid !== null) {
-      xmlnew.send(JSON.stringify(payloadBodyParams));
+        const payloadBodyParams: {
+          [key: string]: string | string[];
+        } = {
+          badgetype: encodeURIComponent(type || "VERTICAL"),
+          badgetheme: encodeURIComponent(theme || "light"),
+          locale: locale || "en_US",
+          uid: uid || "",
+          version: encodeURIComponent(version || "v1"),
+        };
+
+        if (version === "v2") {
+          payloadBodyParams.badgesize = size || "medium";
+          payloadBodyParams.entity = entity || "PROFILE";
+        } else {
+          payloadBodyParams.maxsize = encodeURIComponent(size || "medium");
+          payloadBodyParams.trk = TRACKING_PARAM;
+          payloadBodyParams.vanityname = encodeURIComponent(vanity || "☯liu");
+        }
+
+        if (isCreatePage) {
+          payloadBodyParams.fromCreate = "true";
+        }
+
+        if (isCreatePage) {
+          payloadBodyParams.fromCreate = 'true';
+        }
+
+        const xmlnew = new XMLHttpRequest();
+        const baseUrl = 'https://ziping.liu.academy/api/v2/linkedin/profile/';
+
+        xmlnew.open('POST', baseUrl, true);
+        xmlnew.setRequestHeader('Content-Type', 'application/json');
+        xmlnew.onreadystatechange = function () {
+          if (xmlnew.readyState === 4 && xmlnew.status === 200) {
+            const data = JSON.parse(xmlnew.responseText);
+            const headlineText = data.profileHeadline;
+            const captured = captureUnicodeEscapes(headlineText);
+
+            if (captured) {
+              const capturedPart = captured[1];
+              const capturedPartJson = JSON.parse(`"${capturedPart}"`);
+              data.profileHeadline = headlineText.replace(capturedPart, capturedPartJson);
+            }
+            console.info('profile data', data);
+            setProfileData(data);
+            localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`, JSON.stringify(data));
+            localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`, new Date().getTime().toString());
+
+          }
+        };
+
+        if (profileData === null && uidNew !== null) {
+          xmlnew.send(JSON.stringify(payloadBodyParams));
+        }
+      });
+
+
+
+
+
+    };
+    const cachedProfileData = localStorage.getItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`);
+    const lastUpdated = localStorage.getItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`);
+    const now = new Date().getTime();
+    const lastUpdatedTime = parseInt(lastUpdated || '0', 10);
+    const timeDiff = now - lastUpdatedTime;
+    const timeDiffInHours = timeDiff / (1000 * 60 * 60);
+    
+    const isCacheDataMissingRequiredFieldsOrCorrupt = cachedProfileData && (!cachedProfileData.includes('profileName'));
+    const isOutDatedOrNotThere =  isCacheDataMissingRequiredFieldsOrCorrupt ||(!cachedProfileData || !lastUpdated || timeDiffInHours > 48);
+    if(debug){
+      console.info('cachedProfileData', cachedProfileData, "lastUpdated", lastUpdated, "isOutDatedOrNotThere", isOutDatedOrNotThere, "timeDiffInHours", timeDiffInHours);
     }
+    if (
+      noCache ||
+      isOutDatedOrNotThere
+    ) {
+      if(debug){
+        console.info('Fetching data from API', "cachProfileData", cachedProfileData, "lastUpdated", lastUpdated, "cachedProfileData", cachedProfileData);
+      }
+      fetchData();
+    } else {
+      if(debug){
+        console.info('Fetching data from cache linkedinbadge', "cachProfileData", cachedProfileData, "lastUpdated", lastUpdated);
+      }
+      setProfileData(JSON.parse(cachedProfileData));
+    }
+
   }, [
     locale,
     size,
@@ -142,15 +183,12 @@ export default function LinkedInBadgeSelfRender({
     type,
     vanity,
     version,
-    className,
     entity,
     generateUidWithoutApi,
     hideViewProfileButton,
-    id,
     TRACKING_PARAM,
     isCreatePage,
-    name,
-    uid,
+    noCache
   ]);
 
   const widthSet = React.useMemo(() => {
@@ -308,11 +346,10 @@ export default function LinkedInBadgeSelfRender({
             className="badge-base__link LI-simple-link"
             target="_blank"
             rel="noopener noreferrer"
-            href={`${
-              vanity
+            href={`${vanity
                 ? `https://www.linkedin.com/in/${vanity}?trk=profile-badge`
                 : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
-            }`}
+              }`}
           >
             {name}
           </a>
