@@ -62,12 +62,8 @@ export default function LinkedInBadgeSelfRender({
       return unicodeEscapeRegex.exec(input);
     };
 
-
-
     const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
     const fetchData = () => {
-
-
       generateUidFromProps({
         locale,
         size,
@@ -81,12 +77,9 @@ export default function LinkedInBadgeSelfRender({
         TRACKING_PARAM,
         isCreatePage,
       }).then((uidNew) => {
-
-
         if (uidNew !== uid && uidNew !== null) {
           setUid(uidNew);
         }
-
 
         const payloadBodyParams: {
           [key: string]: string | string[];
@@ -94,7 +87,9 @@ export default function LinkedInBadgeSelfRender({
           badgetype: encodeURIComponent(type || "VERTICAL"),
           badgetheme: encodeURIComponent(theme || "light"),
           locale: locale || "en_US",
-          uid: uid || "",
+          uid:
+            uidNew ||
+            `${lastUpdatedTime ? lastUpdatedTime : new Date().getTime()}`,
           version: encodeURIComponent(version || "v1"),
         };
 
@@ -112,81 +107,120 @@ export default function LinkedInBadgeSelfRender({
         }
 
         if (isCreatePage) {
-          payloadBodyParams.fromCreate = 'true';
+          payloadBodyParams.fromCreate = "true";
         }
 
         const xmlnew = new XMLHttpRequest();
-        const baseUrl = 'https://ziping.liu.academy/api/v2/linkedin/profile/';
+        const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
 
         if (profileData === null && uidNew !== null) {
-          xmlnew.open('POST', baseUrl, true);
-          xmlnew.setRequestHeader('Content-Type', 'application/json');
+          xmlnew.open("POST", baseUrl, true);
+          xmlnew.setRequestHeader("Content-Type", "application/json");
           xmlnew.onreadystatechange = function () {
             if (xmlnew.readyState === 4 && xmlnew.status === 200) {
               const data = JSON.parse(xmlnew.responseText);
               const headlineText = data.profileHeadline;
 
-              // Handle unicode escape characters so that special unicode characters will render with 
+              // Handle unicode escape characters so that special unicode characters will render with
               // appropriate characters in the profile headline, else the unicode escape characters will be displayed.
               const captured = captureUnicodeEscapes(headlineText);
               if (captured) {
                 const capturedPart = captured[1];
                 // JSON parse the captured unicode escape characters to get the actual unicode characters
-                // which allows these characterse to properly render in the profile headline in the 
+                // which allows these characterse to properly render in the profile headline in the
                 // LinkedInBadge component.
                 const capturedPartJson = JSON.parse(`"${capturedPart}"`);
-                data.profileHeadline = headlineText.replace(capturedPart, capturedPartJson);
+                data.profileHeadline = headlineText.replace(
+                  capturedPart,
+                  capturedPartJson,
+                );
               }
               if (debug) {
-                console.info(`Retrieved profile badge info for vanity ${vanity
-                  } via API and saving to local storage: `, `'cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}'`, 'profile data', `${Object.keys(data).toString()}`);
+                console.info(
+                  `Retrieved profile badge info for vanity ${vanity} via API and saving to local storage: `,
+                  `'cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}'`,
+                  "profile data",
+                  `${Object.keys(data).toString()}`,
+                );
               }
-
               setProfileData(data);
-              localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`, JSON.stringify(data));
-              localStorage.setItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`, new Date().getTime().toString());
+              localStorage.setItem(
+                `cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`,
+                JSON.stringify(data),
+              );
+              localStorage.setItem(
+                `cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`,
+                new Date().getTime().toString(),
+              );
             }
           };
           if (debug) {
-            console.info(`Fetching profile badge info now for vanity ${vanity
-              } via API: `, `'${baseUrl}'`, 'payloadBodyParams', `${Object.keys(payloadBodyParams).toString()}`);
+            console.info(
+              `Fetching profile badge info now for vanity ${vanity} via API: `,
+              `'${baseUrl}'`,
+              "payloadBodyParams",
+              `${Object.keys(payloadBodyParams).toString()}`,
+            );
           }
           xmlnew.send(JSON.stringify(payloadBodyParams));
         }
       });
-
-
-
-
-
     };
-    const cachedProfileData = localStorage.getItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`);
-    const lastUpdated = localStorage.getItem(`cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`);
+    const cachedProfileData = localStorage.getItem(
+      `cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}`,
+    );
+    const lastUpdated = localStorage.getItem(
+      `cachedProfileData-${vanity}-${locale}-${size}-${theme}-${type}-${entity}-lastUpdated`,
+    );
     const now = new Date().getTime();
-    const lastUpdatedTime = parseInt(lastUpdated || '0', 10);
+    const lastUpdatedTime = parseInt(lastUpdated || "0", 10);
     const timeDiff = now - lastUpdatedTime;
     const timeDiffInHours = timeDiff / (1000 * 60 * 60);
 
-    const isCacheDataMissingRequiredFieldsOrCorrupt = cachedProfileData && (!cachedProfileData.includes('profileName'));
-    const isOutDatedOrNotThere = isCacheDataMissingRequiredFieldsOrCorrupt || (!cachedProfileData || !lastUpdated || timeDiffInHours > 48);
+    const isCacheDataMissingRequiredFieldsOrCorrupt =
+      cachedProfileData && !cachedProfileData.includes("profileName");
+    const isOutDatedOrNotThere =
+      isCacheDataMissingRequiredFieldsOrCorrupt ||
+      !cachedProfileData ||
+      !lastUpdated ||
+      timeDiffInHours > 48;
     if (debug) {
-      console.info('cachedProfileData', cachedProfileData, "lastUpdated", lastUpdated, "isOutDatedOrNotThere", isOutDatedOrNotThere, "timeDiffInHours", timeDiffInHours);
+      console.info(
+        "cachedProfileData",
+        cachedProfileData,
+        "lastUpdated",
+        lastUpdated,
+        "isOutDatedOrNotThere",
+        isOutDatedOrNotThere,
+        "timeDiffInHours",
+        timeDiffInHours,
+      );
     }
-    if (
-      noCache ||
-      isOutDatedOrNotThere
-    ) {
+    if (noCache || isOutDatedOrNotThere) {
       if (debug) {
-        console.info('Fetching data from API', "cachProfileData", cachedProfileData, "lastUpdated", lastUpdated, "cachedProfileData", cachedProfileData);
+        console.info(
+          "Fetching data from API",
+          "cachProfileData",
+          cachedProfileData,
+          "lastUpdated",
+          lastUpdated,
+          "cachedProfileData",
+          cachedProfileData,
+        );
       }
       fetchData();
     } else {
       if (debug) {
-        console.info('Fetching data from cache linkedinbadge', "cachProfileData", cachedProfileData, "lastUpdated", lastUpdated);
+        console.info(
+          "Fetching data from cache linkedinbadge",
+          "cachProfileData",
+          cachedProfileData,
+          "lastUpdated",
+          lastUpdated,
+        );
       }
       setProfileData(JSON.parse(cachedProfileData));
     }
-
   }, [
     locale,
     size,
@@ -199,7 +233,8 @@ export default function LinkedInBadgeSelfRender({
     hideViewProfileButton,
     TRACKING_PARAM,
     isCreatePage,
-    noCache
+    noCache,
+    debug,
   ]);
 
   const widthSet = React.useMemo(() => {
@@ -298,43 +333,46 @@ export default function LinkedInBadgeSelfRender({
               </a>
             )}
           </h3>
-          <h4 className="profile-badge__content-profile-headline">
-            {profileData?.profileHeadline && (
-              <>{profileData?.profileHeadline}</>
-            )}
-          </h4>
-          <h4 className="profile-badge__content-profile-company-school-info">
-            {profileData?.profileCompanyOrSchool &&
-              Array.isArray(profileData?.profileCompanyOrSchool) &&
-              profileData?.profileCompanyOrSchool.map(
-                (companyOrSchool, index) => {
-                  return (
-                    <>
-                      <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        key={index}
-                        href={companyOrSchool.href}
-                        className={
-                          `profile-badge__content-profile-company-school-info-link ` +
-                          `profile-badge__content-profile-company-school-info-link--${theme === "light" ? "light" : "dark"}`
-                        }
-                        data-tracking-control-name="public-profile-badge-profile-badge_school-name"
-                        data-tracking-will-navigate="true"
-                      >
-                        {companyOrSchool.text}
-                      </a>{" "}
-                      {index !== profileData?.profileCompanyOrSchool.length - 1
-                        ? " | "
-                        : ""}{" "}
-                    </>
-                  );
-                },
-              )}
-          </h4>
+          {profileData?.profileHeadline && (
+            <h4 className="profile-badge__content-profile-headline">
+              {profileData?.profileHeadline}
+            </h4>
+          )}
+          {profileData?.profileCompanyOrSchool && (
+            <h4 className="profile-badge__content-profile-company-school-info">
+              {profileData?.profileCompanyOrSchool &&
+                Array.isArray(profileData?.profileCompanyOrSchool) &&
+                profileData?.profileCompanyOrSchool.map(
+                  (companyOrSchool, index) => {
+                    return (
+                      <>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          key={index}
+                          href={companyOrSchool.href}
+                          className={
+                            `profile-badge__content-profile-company-school-info-link ` +
+                            `profile-badge__content-profile-company-school-info-link--${theme === "light" ? "light" : "dark"}`
+                          }
+                          data-tracking-control-name="public-profile-badge-profile-badge_school-name"
+                          data-tracking-will-navigate="true"
+                        >
+                          {companyOrSchool.text}
+                        </a>{" "}
+                        {index !==
+                        profileData?.profileCompanyOrSchool.length - 1
+                          ? " | "
+                          : ""}{" "}
+                      </>
+                    );
+                  },
+                )}
+            </h4>
+          )}
         </div>
         {children}
-        {hideViewProfileButton === false && (
+        {hideViewProfileButton === false && profileData !== null && (
           <a
             className={
               `profile-badge__cta-btn ` +
@@ -357,10 +395,11 @@ export default function LinkedInBadgeSelfRender({
             className="badge-base__link LI-simple-link"
             target="_blank"
             rel="noopener noreferrer"
-            href={`${vanity
-              ? `https://www.linkedin.com/in/${vanity}?trk=profile-badge`
-              : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
-              }`}
+            href={`${
+              vanity
+                ? `https://www.linkedin.com/in/${vanity}?trk=profile-badge`
+                : "https://www.linkedin.com/in/%E2%98%AFliu?trk=public-profile-badge-profile-badge-profile-name"
+            }`}
           >
             {name}
           </a>

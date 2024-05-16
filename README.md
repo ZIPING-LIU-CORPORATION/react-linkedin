@@ -185,5 +185,5 @@ See license in [LICENSE.md](LICENSE.md)
 - [Yarn Package Page](https://yarnpkg.com/package/react-linkedinbadge)
 - [GitHub Repository](https://github.com/ziping-liu-corporation/react-linkedin)
 - [jsdelivr Page](https://www.jsdelivr.com/package/npm/react-linkedinbadge)
-- [LinkedIn Badges](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=ziping.org)
+- [LinkedIn Badges](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=react-linkedinbadge)
 
