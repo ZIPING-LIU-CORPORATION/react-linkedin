@@ -2,15 +2,16 @@
 
 This React custom component lets you display LinkedIn profile information or company details in your React-based web application through LinkedIn Profile Badges. It is an enhanced version of the code provided by LinkedIn for embedding profile badges on any website, rendering badges much faster and more controlled than the provided method.
 
-   <a href='https://linkedinliu.com' target="_blank" 
+<a href='https://linkedinliu.com' target="_blank" 
 	   title="LinkedIn Badges Displayed on its demo site at www.linkedinliu.com"
 	   rel="noopener noreferrer" >
-   <image src='https://repository-images.githubusercontent.com/538215522/a957e0ed-4a77-4659-93f0-36aac5181d9c' alt='LinkedIn Badges Displayed on the Demo Site at linkedinliu.com' width='95%' height='auto' style="text-align:center;margin: 0 auto; align-self:center; max-width: 95%; height: auto;" />
-   </a>
+<image src='https://repository-images.githubusercontent.com/538215522/a957e0ed-4a77-4659-93f0-36aac5181d9c' alt='LinkedIn Badges Displayed on the Demo Site at linkedinliu.com' width='95%' height='auto' style="text-align:center;margin: 0 auto; align-self:center; max-width: 95%; height: auto;" />
+</a>
 
 ## FEATURES
 
 This component can render LinkedIn badges with customizable options such as locale, size, theme, type, vanity, and version. Due to limitations in LinkedIn's official badge rendering method, it now offers even more previously unavailable options. These additional options can be specific as part of the component's props.
+
 - Supports both profile badges and entity badges (e.g., company badges), as well as badges that can be configured beyond the current options provided by LinkedIn's implementation.
 - Separates badge container rendering from dynamic badge content rendering for better code organization and allows for asynchronous and non-blocking rendering of multiple badges due to the nature of LinkedIn's own method having utilized a global param in handling the rendering of multiple badges, which does not take into count how some badges may not appear on the page the same time as others (thus such badges would then miss the global train for rending).
 - LinkedIn employees are not allowed to use this component. Without the author's contractual agreement, it should not be referenced or used as inspiration.
@@ -77,8 +78,6 @@ const App = () => {
   );
 };
 ```
-
-
 
 ### CDN Usage
 
@@ -186,4 +185,3 @@ See license in [LICENSE.md](LICENSE.md)
 - [GitHub Repository](https://github.com/ziping-liu-corporation/react-linkedin)
 - [jsdelivr Page](https://www.jsdelivr.com/package/npm/react-linkedinbadge)
 - [LinkedIn Badges](https://www.linkedin.com/badges/profile/create?vanityname=%E2%98%AFliu&preferredlocale=en_US&trk=public_profile_badge&source=react-linkedinbadge)
-
