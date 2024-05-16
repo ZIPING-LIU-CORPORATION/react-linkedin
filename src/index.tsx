@@ -18,6 +18,7 @@ import LIRender from "./LIRender";
  * @param {useLinkedInApiUrlPure} [useLinkedInApiUrlPure] - Defaults as `false`, if set `true`, profile badges are rendered fully through LinkedIn's badge rendering method and only through LinkedIn's API endpoints. If set to `true`, note that there may be issues surfaced inherent in LinkedIn's implementation of profile badges.
  * @param {boolean} [generateUidWithoutApi] - Defaults as `false`, if `true`, uid creation won't include utilizing an API call to form a more unique uid.
  * @param {ReactNode} [children] - The children to render within the badge container, only supported when useLinkedInApiUrlPure is set to `false`, hence when rendering the badge within the component itself and without the LinkedIn's badge rendering API's callback injection with iframe method.
+ * @param {cleanUp} [noClean] - Defaults as `false` and is only used when `useLinkedInApiUrlPure` is set to `true`, if set to `true`, the callback function used by the server-side rendering will be cleaned up and deleted after rendering the profile badge.
  * @param {boolean} [noCache] - Default is `false`, set to `true` to disable the caching of profile badge data in the browser's local storage. Caching is only done when rendering through the
  * component's self-rendering method and not through the LinkedIn's badge rendering API's callback injection with iframe method.
  * @example
@@ -53,6 +54,7 @@ export type LinkedInBadgeProps = {
   hideViewProfileButton: boolean;
   generateUidWithoutApi: boolean;
   useLinkedInApiUrlPure: boolean;
+  cleanUp: boolean;
 };
 
 /**
@@ -153,7 +155,8 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
           entity={entity}
           version={version}
           isCreatePage={false}
-          debug={true}
+          debug={props.debug}
+          cleanUp={props.cleanUp}
         />
       )}
     </div>

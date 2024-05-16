@@ -73,7 +73,7 @@ const LIRender = ({
   const badge = document.querySelector(fulbadgequery);
   const badgeRef = React.useRef(badge);
 
-  React.useEffect(() => {
+  useEffect(() => {
     badgeRef.current = badge;
   }, [badge]);
 
@@ -249,13 +249,47 @@ const LIRender = ({
       );
     }
 
-    const responseHandler = (badgeHtml: string) => {
+    const responseHandler  = (badgeHtml: string) =>  {
       responsesReceived++;
       const defaultWidth = 330;
       const defaultHeight = 300;
 
       const badgeMarkup = `<body>${badgeHtml}</body>`;
       const iframe = document.createElement("iframe");
+
+ 
+      const regexCaptureViewProfileLink = /class="profile-badge__cta-btn profile-badge__cta-btn--light" href="([^"]*)"/;
+      const match = badgeHtml.match(regexCaptureViewProfileLink);
+      if(debug){
+        console.info(
+          "%cresponseHandler - matching for url:",
+          "background: #0077b5; color: #fff; padding: 5px; border-radius: 5px; font-weight: bold; font-size: 14px;",
+          `match: ${match?.[1]}`,
+        )
+      }
+   
+      const matchVanityInUrl = match?.[1].match(/\/in\/([^\/]*)\?.*/);
+      const badgeVanityQuery = document.querySelector(`[data-vanity="${matchVanityInUrl?.[1]}"]`);
+
+      if(debug){
+        console.info(
+          "%cresponseHandler - matching for vanity:",
+          "background: #0077b5; color: #fff; padding: 5px; border-radius: 5px; font-weight: bold; font-size: 14px;",
+          `matchVanityInUrl: ${matchVanityInUrl?.[1]}`,
+        )
+        console.info(
+          "%cresponseHandler - matching for vanity:",
+          "background: #0077b5; color: #fff; padding: 5px; border-radius: 5px; font-weight: bold; font-size: 14px;",
+          `matchVanityInUrl: ${matchVanityInUrl?.[1]}`,
+        )
+        console.info(
+          "%cresponseHandler - matching for badge query:",
+          "background: #0077b5; color: #fff; padding: 5px; border-radius: 5px; font-weight: bold; font-size: 14px;",
+          `badgeVanityQuery: ${badgeVanityQuery?.innerHTML}`,
+        )
+  
+      }
+   
       iframe.onload = function () {
         if (iframe.contentWindow) {
           const iframeBody = iframe.contentWindow.document.body;
@@ -271,7 +305,21 @@ const LIRender = ({
       };
       iframe.setAttribute("frameBorder", "0");
       iframe.style.display = "block";
-      badge!.appendChild(iframe);
+      if(badgeVanityQuery){
+   
+        if(debug){
+          console.info(
+            "%cresponseHandler - matching for vanity:",
+            "background: #0077b5; color: #fff; padding: 5px; border-radius: 5px; font-weight: bold; font-size: 14px;",
+            `vanity found in query: ${badgeVanityQuery?.getAttribute("data-vanity")}`,
+          )
+        }
+        
+        badgeVanityQuery?.appendChild(iframe);
+      } else {
+        badge?.appendChild(iframe);
+      }
+ 
       if (iframe.contentWindow) {
         iframe.contentWindow.document.open();
         iframe.contentWindow.document.write(badgeMarkup);
@@ -350,16 +398,10 @@ const LIRender = ({
     isCreatePage,
     debug,
     cleanUp,
-    badgeQuerySelector,
-    badgeRef.current,
-    badge,
+
   ]);
 
-  return (
-    <iframe
-      key={`${vanity}-${type}-${theme}-${size}-${locale}-${version}-${entity}-${isEI}-${isCreatePage}-${debug}-${cleanUp}`}
-    ></iframe>
-  );
+  return  null;
 };
 
 export default LIRender;
