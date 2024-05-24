@@ -318,7 +318,7 @@ export default function LinkedInBadgeSelfRender({
           <h3 className="profile-badge__content-profile-name" itemProp="name">
             {profileData?.profileName && (
               <a
-                className={
+                 className={
                   `profile-badge__content-profile-name-link ` +
                   `profile-badge__content-profile-name-link--${theme === "light" ? "light" : "dark"}`
                 }
@@ -345,11 +345,10 @@ export default function LinkedInBadgeSelfRender({
                 profileData?.profileCompanyOrSchool.map(
                   (companyOrSchool, index) => {
                     return (
-                      <>
+                      <span key={`${uid}-company-school-${index}`}>
                         <a
                           target="_blank"
                           rel="noopener noreferrer"
-                          key={index}
                           href={companyOrSchool.href}
                           className={
                             `profile-badge__content-profile-company-school-info-link ` +
@@ -359,19 +358,23 @@ export default function LinkedInBadgeSelfRender({
                           data-tracking-will-navigate="true"
                         >
                           {companyOrSchool.text}
-                        </a>{" "}
+                        </a>
+                        &nbsp;
                         {index !==
                         profileData?.profileCompanyOrSchool.length - 1
                           ? " | "
-                          : ""}{" "}
-                      </>
+                          : ""}&nbsp;
+                        </span>
+                 
                     );
                   },
                 )}
             </h4>
           )}
         </div>
+   
         {children}
+ 
         {hideViewProfileButton === false && profileData !== null && (
           <a
             className={
@@ -386,6 +389,7 @@ export default function LinkedInBadgeSelfRender({
             target="_blank"
             data-tracking-control-name="public-profile-badge-profile-badge-view-profile-cta"
             data-tracking-will-navigate=""
+
           >
             View profile
           </a>
@@ -395,6 +399,7 @@ export default function LinkedInBadgeSelfRender({
             className="badge-base__link LI-simple-link"
             target="_blank"
             rel="noopener noreferrer"
+            key={`${uid}-view-profile-no-data`}
             href={`${
               vanity
                 ? `https://www.linkedin.com/in/${vanity}?trk=profile-badge`
