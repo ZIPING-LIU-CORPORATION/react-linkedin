@@ -5,7 +5,7 @@ This React custom component lets you display LinkedIn profile information or com
 <a href='https://linkedinliu.com' target="_blank" 
 	   title="LinkedIn Badges Displayed on its demo site at www.linkedinliu.com"
 	   rel="noopener noreferrer" >
-<image src='https://repository-images.githubusercontent.com/538215522/a957e0ed-4a77-4659-93f0-36aac5181d9c' alt='LinkedIn Badges Displayed on the Demo Site at linkedinliu.com' width='95%' height='auto' style="text-align:center;margin: 0 auto; align-self:center; max-width: 95%; height: auto;" />
+<image src='http://repository-images.githubusercontent.com/538215522/d9cffdcc-e1b9-4659-8e28-908953b45903' alt='LinkedIn Badges Displayed on the Demo Site at linkedinliu.com' width='95%' height='auto' style="text-align:center;margin: 0 auto; align-self:center; max-width: 95%; height: auto;" />
 </a>
 
 ## FEATURES
