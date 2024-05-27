@@ -1,6 +1,6 @@
 {
   "name": "react-linkedinbadge",
-  "version": "5.25.2024",
+  "version": "5.25.2025",
   "description": "The LinkedIn Badge Rendering React Component is a powerful tool for displaying LinkedIn badges on websites. With customizable options and support for both profile and entity badges, this component offers improved features over LinkedIn's basic implementation. It enhances code organization by separating badge container rendering from dynamic content rendering and efficiently handles asynchronous loading of content from LinkedIn servers. This component also allows for easy management of multiple badges on a page and provides a callback function for tracking badge rendering completion. Make sure to review the licensing information for proper usage.",
   "repository": {
     "type": "git",

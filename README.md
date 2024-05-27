@@ -1,12 +1,7 @@
 # LinkedIn Badges with React
 
 This React custom component lets you display LinkedIn profile information or company details in your React-based web application through LinkedIn Profile Badges. It is an enhanced version of the code provided by LinkedIn for embedding profile badges on any website, rendering badges much faster and more controlled than the provided method.
-
-<a href='https://linkedinliu.com' target="_blank" 
-	   title="LinkedIn Badges Displayed on its demo site at www.linkedinliu.com"
-	   rel="noopener noreferrer" >
-<image src='http://repository-images.githubusercontent.com/538215522/d9cffdcc-e1b9-4659-8e28-908953b45903' alt='LinkedIn Badges Displayed on the Demo Site at linkedinliu.com' width='95%' height='auto' style="text-align:center;margin: 0 auto; align-self:center; max-width: 95%; height: auto;" />
-</a>
+![LinkedIn Badges Displayed on the Demo Site at https://linkedinliu.com/badges/](http://repository-images.githubusercontent.com/538215522/d9cffdcc-e1b9-4659-8e28-908953b45903)
 
 ## FEATURES
 
