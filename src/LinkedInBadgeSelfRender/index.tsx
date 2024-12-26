@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { generateUidFromProps } from "src/utils";
 import LinkedInIcon from "./LinkedInIcon";
 
-export default function LinkedInBadgeSelfRender({
+const LinkedInBadgeSelfRender = ({
   locale = "en_US",
   size = "medium",
   style,
@@ -40,7 +40,7 @@ export default function LinkedInBadgeSelfRender({
   name?: string;
   noCache?: boolean;
   debug?: boolean;
-}) {
+}) => {
   const [profileData, setProfileData] = React.useState<{
     profileImageSrc: string;
     profileName: string;
@@ -56,13 +56,18 @@ export default function LinkedInBadgeSelfRender({
 
   const [uid, setUid] = React.useState<string | null>(null);
 
+ 
+
   React.useEffect(() => {
-    const captureUnicodeEscapes = (input: string): RegExpMatchArray | null => {
-      const unicodeEscapeRegex = /((\\u[\dA-Fa-f]{4}){2,})/g;
-      return unicodeEscapeRegex.exec(input);
+
+    const decodeUnicodeEscapes = (input: string): string => {
+        const unicodeEscapeRegex = /\\u([\dA-Fa-f]{4})/g;
+        return input.replace(unicodeEscapeRegex, (match, grp) => {
+            return String.fromCodePoint(parseInt(grp, 16));
+        });
     };
 
-    const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
+
     const fetchData = () => {
       generateUidFromProps({
         locale,
@@ -112,29 +117,26 @@ export default function LinkedInBadgeSelfRender({
 
         const xmlnew = new XMLHttpRequest();
         const baseUrl = "https://ziping.liu.academy/api/v2/linkedin/profile/";
-
+        console.info(`profileData: ${profileData}, uidNew: ${uidNew}`);
         if (profileData === null && uidNew !== null) {
           xmlnew.open("POST", baseUrl, true);
           xmlnew.setRequestHeader("Content-Type", "application/json");
           xmlnew.onreadystatechange = function () {
             if (xmlnew.readyState === 4 && xmlnew.status === 200) {
-              const data = JSON.parse(xmlnew.responseText);
-              const headlineText = data.profileHeadline;
+            
 
-              // Handle unicode escape characters so that special unicode characters will render with
-              // appropriate characters in the profile headline, else the unicode escape characters will be displayed.
-              const captured = captureUnicodeEscapes(headlineText);
-              if (captured) {
-                const capturedPart = captured[1];
-                // JSON parse the captured unicode escape characters to get the actual unicode characters
-                // which allows these characterse to properly render in the profile headline in the
-                // LinkedInBadge component.
-                const capturedPartJson = JSON.parse(`"${capturedPart}"`);
-                data.profileHeadline = headlineText.replace(
-                  capturedPart,
-                  capturedPartJson,
-                );
-              }
+              console.info(`xmlnew.responseText: ${xmlnew.responseText}`);
+
+              const data = JSON.parse(xmlnew.responseText);
+              let headlineText = data.profileHeadline;
+                headlineText = decodeUnicodeEscapes(headlineText);
+                headlineText = headlineText.replace(/&amp;/g, "&");
+
+              // No need for captureUnicodeEscapes and JSON.parse anymore.
+              console.info(`new headlineText: ${headlineText}`);
+              console.info(`old headlineText: ${data.profileHeadline}`);
+              data.profileHeadline = headlineText;
+
               if (debug) {
                 console.info(
                   `Retrieved profile badge info for vanity ${vanity} via API and saving to local storage: `,
@@ -413,3 +415,6 @@ export default function LinkedInBadgeSelfRender({
     </div>
   );
 }
+
+
+export default memo(LinkedInBadgeSelfRender);

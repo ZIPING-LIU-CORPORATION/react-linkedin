@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 const LIRender = ({
   CALLBACK_NAME = "LIBadgeCallback",
   BADGE_NAMES = ".LI-profile-badge, .LI-entity-badge",
@@ -404,4 +404,4 @@ const LIRender = ({
   return  null;
 };
 
-export default LIRender;
+export default memo(LIRender);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import LinkedInBadgeSelfRender from "./LinkedInBadgeSelfRender";
 import LIRender from "./LIRender";
 /**
@@ -36,24 +36,81 @@ import LIRender from "./LIRender";
  *
  **/
 export type LinkedInBadgeProps = {
+  /**
+   * The locale to use for the badge. Defaults to `"en_US"`.
+   */
   locale: string;
+  /**
+   * The size of the badge. By default, the badge is set to `"medium"`.
+   */
   size: "medium" | "large";
+  /**
+   * The theme of the badge. By default, the badge is set to `"light"`.
+   */
   theme: "light" | "dark";
+  /**
+   * The orientation of the badge. By default, the badge is set to `"VERTICAL"`.
+   */
   type: "VERTICAL" | "HORIZONTAL";
+  /**
+   * The entity type of the badge, defaults to `"PROFILE"`. At this time only "PROFILE" is supported.
+   */
   entity: "PROFILE" | "COMPANY" | "GROUP";
+  /**
+   * The vanity name or URL to display on the badge. (vanity name is the part of the LinkedIn profile URL that comes after the `/in/` or `/company/` or `/group/` part)
+   */
   vanity: string;
+  /**
+   * The version of the badge to use. Uses `"v1"` by default. At this time only "v1" is supported. v2 has never been tested or known to work.
+   */
   version: "v1" | "v2";
+  /**
+   * Optional, an addtional class name to add to the badge container that is the most outer container of the badge.
+   */
   className: string;
+  /**
+   * Optional, inline styles to apply to the badge container.
+   */
   style: React.CSSProperties;
+  /**
+   * Optional, additional components that are rendered after the badge container.
+   */
   children: React.ReactNode;
+  /**
+   * Optional, defaults to `false`, if true, saves and uses localStorage for badge data for faster rendering and caches the data for 24 hours.
+   */
   noCache: boolean;
+  /**
+   * Optional, an element ID to assign to the badge container.
+   */
   id: string;
+  /**
+   * Optional, the script that is used to render the badge. This is only used when `useLinkedInApiUrlPure` is set to `true`, which uses linkedin's rendering method.
+   */
   script_src: string;
+  /**
+   * Optional, the name to display on the badge.
+   */
   name: string;
+  /**
+   * Provides console logs if set to `true`.
+   */
   debug: boolean;
+  /**
+   * Defaults as `false`, if set `true`, the view profile button will be hidden that is displayed as part of the badge's content as a button that when clicked opens the LinkedIn profile page in a new tab.
+   */
   hideViewProfileButton: boolean;
+  /**
+   * Defaults as `false`, if set `true`, uid creation won't include utilizing an API call to form a more unique uid.
+   */
   generateUidWithoutApi: boolean;
+  /**
+   * Defaults as `false`, if set `true`, profile badges are rendered fully through LinkedIn's badge rendering method and only through LinkedIn's API endpoints. If set to `true`, note that there may be issues surfaced inherent in LinkedIn's implementation of profile badges.
+   */
   useLinkedInApiUrlPure: boolean;
+  /**
+   * Defaults as `false` and is only used when `useLinkedInApiUrlPure` is set to `true`, if set to `true`, the callback function used by the server-side rendering will be cleaned up and deleted after rendering the profile badge.
+   */
   cleanUp: boolean;
 };
 
@@ -80,7 +137,7 @@ export type LinkedInBadgeProps = {
  *  />
  * ```
  */
-export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
+const LinkedInBadge: FC<Partial<LinkedInBadgeProps>> = (props) => {
   const locale = props.locale || "en_US";
   const size = props.size || "medium";
   const theme = props.theme || "light";
@@ -96,8 +153,7 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
   const url = `https://www.linkedin.com/in/${vanityEncoded}?trk=profile-badge`;
   const [componentDidMount, setComponentDidMount] =
     React.useState<boolean>(false);
-  const [badgeDidRender, setBadgeDidRender] = React.useState<boolean>(false);
-
+ 
   React.useEffect(() => {
     const logDebug = (message: string, type: string, componentName: string) => {
       if (props.debug) {
@@ -119,9 +175,9 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
     }
   }, [componentDidMount, props.debug]);
 
-  //forward ref to LIRenderAll
+ 
 
-  return props.useLinkedInApiUrlPure === true ? (
+  return useLinkedInApiUrlPure === true ? (
     <div
       className={
         "badge-base LI-profile-badge" +
@@ -183,3 +239,5 @@ export default function LinkedInBadge(props: Partial<LinkedInBadgeProps>) {
     </LinkedInBadgeSelfRender>
   );
 }
+
+export default LinkedInBadge;
